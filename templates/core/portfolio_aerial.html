@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Aerial Cinematography | JMViews{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <div class="h-eyebrow">Portfolio</div>
+    <h1 class="h-title">Aerial cinematography</h1>
+    <p class="h-sub">
+      Perspective from above — drone visuals built for hero moments, intros and campaigns.
+    </p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <a class="btn" href="{% url 'core:portfolio' %}">Back to portfolio</a>
+      <a class="btn glow" href="{% url 'core:contact' %}">Enquire</a>
+    </div>
+  </section>
+
+  <section style="margin-top:16px">
+    <div class="grid two">
+      <div class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Collection</div>
+        <h2 style="margin:10px 0 0 0">Coastal flights</h2>
+        <p class="muted" style="margin:10px 0 0 0">Coastlines, cliffs, and shoreline movement with cinematic framing.</p>
+      </div>
+
+      <div class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Collection</div>
+        <h2 style="margin:10px 0 0 0">City overheads</h2>
+        <p class="muted" style="margin:10px 0 0 0">Urban geometry, top-down composition, and clean motion.</p>
+      </div>
+
+      <div class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Collection</div>
+        <h2 style="margin:10px 0 0 0">Movement & motion</h2>
+        <p class="muted" style="margin:10px 0 0 0">Smooth passes, reveals, and sequences designed for edits.</p>
+      </div>
+    </div>
+  </section>
+{% endblock %}

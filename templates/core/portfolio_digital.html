@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Digital Projects | JMViews{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <div class="h-eyebrow">Portfolio</div>
+    <h1 class="h-title">Digital projects</h1>
+    <p class="h-sub">
+      Websites, interface layouts and brand work — with room to expand into motion and 3D.
+    </p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <a class="btn" href="{% url 'core:portfolio' %}">Back to portfolio</a>
+      <a class="btn glow" href="{% url 'core:contact' %}">Enquire</a>
+    </div>
+  </section>
+
+  <section style="margin-top:16px">
+    <div class="grid two">
+      <div class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Live project</div>
+        <h2 style="margin:10px 0 0 0">La Tavola Italiana</h2>
+        <p class="muted" style="margin:10px 0 0 0">Full-stack build with structured pages and deployment.</p>
+        <div style="margin-top:14px">
+          <a class="btn glow" href="https://project3rb-d3edfb5c8d9d.herokuapp.com" target="_blank" rel="noreferrer">View site →</a>
+        </div>
+      </div>
+
+      <div class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Live project</div>
+        <h2 style="margin:10px 0 0 0">BrainMatch</h2>
+        <p class="muted" style="margin:10px 0 0 0">Responsive memory game with smooth UX and clean UI.</p>
+        <div style="margin-top:14px">
+          <a class="btn glow" href="https://jermainemckenna.github.io/project2-l-memory-game/" target="_blank" rel="noreferrer">View site →</a>
+        </div>
+      </div>
+
+      <div class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Category</div>
+        <h2 style="margin:10px 0 0 0">UI layouts</h2>
+        <p class="muted" style="margin:10px 0 0 0">Wireframes, page structures and interface components.</p>
+      </div>
+
+      <div class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Category</div>
+        <h2 style="margin:10px 0 0 0">Brand & logo work</h2>
+        <p class="muted" style="margin:10px 0 0 0">Marks, wordmarks, and simple identity systems.</p>
+      </div>
+    </div>
+  </section>
+{% endblock %}

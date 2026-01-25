@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Delete Order | JMViews{% endblock %}
+{% block content %}
+  <div class="page-head">
+    <h1>Delete order</h1>
+  </div>
+
+  <div class="card">
+    <p>Are you sure you want to delete <strong>{{ object.title }}</strong>?</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="actions">
+        <button class="pill danger" type="submit">Yes, delete</button>
+        <a class="pill" href="{% url 'orders:order_detail' object.pk %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

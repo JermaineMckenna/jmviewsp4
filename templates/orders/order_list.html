@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Orders | JMViews{% endblock %}
+
+{% block content %}
+  <div class="page-head">
+    <h1>{% if user.is_staff %}All orders{% else %}Your orders{% endif %}</h1>
+    <a class="pill glow" href="{% url 'orders:order_create' %}">New enquiry</a>
+  </div>
+
+  {% if orders %}
+    <div class="card-grid">
+      {% for order in orders %}
+        <a class="card" href="{% url 'orders:order_detail' order.pk %}">
+          <div class="card-top">
+            <h2>{{ order.title }}</h2>
+            <span class="badge">{{ order.get_status_display }}</span>
+          </div>
+          <p class="muted">{{ order.service.name }}</p>
+          <p class="small">Created: {{ order.created_at|date:"d M Y" }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="card">
+      <p class="muted">No orders yet. Create your first enquiry.</p>
+      <a class="pill glow" href="{% url 'orders:order_create' %}">New enquiry</a>
+    </div>
+  {% endif %}
+{% endblock %}

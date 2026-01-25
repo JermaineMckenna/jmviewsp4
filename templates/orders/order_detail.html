@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}{{ order.title }} | JMViews{% endblock %}
+
+{% block content %}
+  <div class="page-head">
+    <div>
+      <h1>{{ order.title }}</h1>
+      <div class="muted">
+        {{ order.service.name }} · <span class="badge">{{ order.get_status_display }}</span>
+      </div>
+    </div>
+
+    <div class="head-actions">
+      {% if user.is_staff or order.customer == user %}
+        <a class="pill" href="{% url 'orders:order_update' order.pk %}">Edit</a>
+        <a class="pill danger" href="{% url 'orders:order_delete' order.pk %}">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Brief</h2>
+    <p class="pre">{{ order.brief }}</p>
+
+    {% if order.size or order.budget_gbp %}
+      <div class="meta-row">
+        {% if order.size %}<div><span class="muted">Size:</span> {{ order.size }}</div>{% endif %}
+        {% if order.budget_gbp %}<div><span class="muted">Budget:</span> £{{ order.budget_gbp }}</div>{% endif %}
+      </div>
+    {% endif %}
+
+    <div class="meta-row">
+      <div><span class="muted">Created:</span> {{ order.created_at|date:"d M Y, H:i" }}</div>
+      <div><span class="muted">Updated:</span> {{ order.updated_at|date:"d M Y, H:i" }}</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Deliverables</h2>
+
+    {% if order.deliverables.all %}
+      <ul class="list">
+        {% for d in order.deliverables.all %}
+          <li class="list-item">
+            <div>
+              <div class="small muted">{{ d.created_at|date:"d M Y, H:i" }}</div>
+              {% if d.note %}<div>{{ d.note }}</div>{% endif %}
+            </div>
+            <a class="pill" href="{{ d.file.url }}" target="_blank" rel="noreferrer">Download</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">No files uploaded yet.</p>
+    {% endif %}
+
+    {% if user.is_staff %}
+      <div class="actions">
+        <a class="pill glow" href="{% url 'orders:deliverable_create' order.pk %}">Upload deliverable</a>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if not user.is_staff %}
+    <div class="card">
+      <h2>Actions</h2>
+
+      {% if order.status == "delivered" or order.status == "revision_requested" %}
+        <div class="actions">
+          <form method="post" action="{% url 'orders:request_revision' order.pk %}">
+            {% csrf_token %}
+            <button class="pill" type="submit">Request revision</button>
+          </form>
+
+          <form method="post" action="{% url 'orders:mark_complete' order.pk %}">
+            {% csrf_token %}
+            <button class="pill glow" type="submit">Mark complete</button>
+          </form>
+        </div>
+      {% elif order.status == "completed" %}
+        {% if order.testimonial %}
+          <p class="muted">Testimonial submitted (awaiting approval if not visible on portfolio yet).</p>
+        {% else %}
+          <a class="pill glow" href="{% url 'orders:testimonial_create' order.pk %}">Leave testimonial</a>
+        {% endif %}
+      {% else %}
+        <p class="muted">No customer actions available yet.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

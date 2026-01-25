@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Leave Testimonial | JMViews{% endblock %}
+
+{% block content %}
+  <div class="page-head">
+    <h1>Leave a testimonial</h1>
+  </div>
+
+  <div class="card">
+    <form method="post" class="form" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="field">
+        <label for="{{ form.rating.id_for_label }}">Rating (1–5)</label>
+        {{ form.rating }}
+        {{ form.rating.errors }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.content.id_for_label }}">Your feedback</label>
+        {{ form.content }}
+        {{ form.content.errors }}
+      </div>
+
+      <div class="actions">
+        <button class="pill glow" type="submit">Submit</button>
+        <a class="pill" href="{% url 'orders:order_list' %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

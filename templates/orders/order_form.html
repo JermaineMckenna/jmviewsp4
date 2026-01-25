@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Edit Order{% else %}New Enquiry{% endif %} | JMViews{% endblock %}
+
+{% block content %}
+  <div class="page-head">
+    <h1>{% if object %}Edit order{% else %}New enquiry{% endif %}</h1>
+  </div>
+
+  <div class="card">
+    <form method="post" class="form" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="field">
+        <label for="{{ form.service.id_for_label }}">Service</label>
+        {{ form.service }}
+        {{ form.service.errors }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.title.id_for_label }}">Title</label>
+        {{ form.title }}
+        {{ form.title.errors }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.brief.id_for_label }}">Brief</label>
+        {{ form.brief }}
+        {{ form.brief.errors }}
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="{{ form.size.id_for_label }}">Size (optional)</label>
+          {{ form.size }}
+          {{ form.size.errors }}
+        </div>
+        <div class="field">
+          <label for="{{ form.budget_gbp.id_for_label }}">Budget £ (optional)</label>
+          {{ form.budget_gbp }}
+          {{ form.budget_gbp.errors }}
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="pill glow" type="submit">{% if object %}Save{% else %}Send enquiry{% endif %}</button>
+        <a class="pill" href="{% url 'orders:order_list' %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

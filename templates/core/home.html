@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}JMViews P4{% endblock %}
+
+{% block content %}
+  <!-- HERO -->
+  <section class="panel">
+    <div class="h-eyebrow">Digital Services</div>
+    <h1 class="h-title">Web, visuals, and design — delivered professionally.</h1>
+    <p class="h-sub">
+      Request a service, track progress, and download deliverables once delivered.
+      This project is built as a full-stack Django application for ordering design work.
+    </p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      {% if user.is_authenticated %}
+        <a class="btn glow" href="{% url 'orders:order_create' %}">Start a project</a>
+        <a class="btn" href="{% url 'orders:order_list' %}">View your orders</a>
+      {% else %}
+        <a class="btn glow" href="{% url 'accounts:register' %}">Create account</a>
+        <a class="btn" href="{% url 'accounts:login' %}">Login</a>
+      {% endif %}
+      <a class="btn" href="{% url 'core:services' %}">Explore services</a>
+    </div>
+  </section>
+
+  <!-- TWO PANELS (FLEX) -->
+  <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:stretch;margin-top:16px">
+
+    <!-- SERVICES PANEL -->
+    <section class="panel" style="flex:1 1 460px;min-width:320px">
+      <div class="h-eyebrow">Services</div>
+      <h2 style="margin:10px 0 0 0">What you can order</h2>
+      <p class="muted" style="margin:10px 0 0 0">
+Choose a service and submit an enquiry with your brief.
+      </p>
+
+      <div class="grid" style="margin-top:12px">
+        {% for s in services %}
+          <div class="panel" style="background:rgba(15,23,42,.55)">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
+              <div style="min-width:220px">
+                <strong>{{ s.name }}</strong>
+                {% if s.description %}
+                  <div class="muted" style="margin-top:6px">{{ s.description|truncatechars:90 }}</div>
+                {% endif %}
+              </div>
+              <div class="muted" style="white-space:nowrap">From £{{ s.from_price_gbp }}</div>
+            </div>
+
+            <div style="margin-top:10px">
+              {% if user.is_authenticated %}
+                <a class="btn glow" href="{% url 'orders:order_create' %}">Enquire →</a>
+              {% else %}
+                <a class="btn glow" href="{% url 'accounts:register' %}">Enquire →</a>
+              {% endif %}
+            </div>
+          </div>
+        {% empty %}
+          <p class="muted">No active services yet. Add some in admin.</p>
+        {% endfor %}
+      </div>
+
+      <div style="margin-top:12px">
+        <a class="btn" href="{% url 'core:services' %}">View all services</a>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO PANEL -->
+    <section class="panel" style="flex:1 1 460px;min-width:320px">
+      <div class="h-eyebrow">Portfolio</div>
+      <h2 style="margin:10px 0 0 0">Recent work & feedback</h2>
+      <p class="muted" style="margin:10px 0 0 0">
+A snapshot of previous projects and real-world outcomes.
+      </p>
+
+      <!-- Projects -->
+      <div class="grid" style="margin-top:12px">
+        <div class="panel" style="background:rgba(15,23,42,.55)">
+          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Web Project</div>
+          <div style="margin-top:8px"><strong>La Tavola Italiana</strong></div>
+          <div class="muted" style="margin-top:8px">
+Restaurant-style full-stack site build and deployment.
+          </div>
+          <div style="margin-top:12px">
+            <a class="btn glow" href="https://project3rb-d3edfb5c8d9d.herokuapp.com" target="_blank" rel="noreferrer">
+              View site →
+            </a>
+          </div>
+        </div>
+
+        <div class="panel" style="background:rgba(15,23,42,.55)">
+          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Web Project</div>
+          <div style="margin-top:8px"><strong>BrainMatch</strong></div>
+          <div class="muted" style="margin-top:8px">
+Interactive memory game built with clean UI and smooth UX.
+          </div>
+          <div style="margin-top:12px">
+            <a class="btn glow" href="https://jermainemckenna.github.io/project2-l-memory-game/" target="_blank" rel="noreferrer">
+              View site →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="grid" style="margin-top:12px">
+        <div class="panel" style="background:rgba(15,23,42,.55)">
+          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Photography</div>
+          <div style="margin-top:8px"><strong>“Exactly the look we wanted.”</strong></div>
+          <p class="muted" style="margin:8px 0 0 0">
+JMViews delivered a clean set of high-quality photos that instantly upgraded our brand.
+            The edits were sharp, colours were consistent, and the turnaround was faster than expected.
+          </p>
+          <div class="muted" style="margin-top:10px">— Client, UK</div>
+        </div>
+
+        <div class="panel" style="background:rgba(15,23,42,.55)">
+          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Drone Visuals</div>
+          <div style="margin-top:8px"><strong>“The aerial footage was unreal.”</strong></div>
+          <p class="muted" style="margin:8px 0 0 0">
+The drone shots gave us that cinematic feel we couldn’t get any other way.
+Smooth movement, great framing, and the final clips were ready to post straight to socials.
+          </p>
+          <div class="muted" style="margin-top:10px">— Client, London</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <a class="btn" href="{% url 'core:portfolio' %}">View portfolio</a>
+      </div>
+    </section>
+
+  </div>
+{% endblock %}

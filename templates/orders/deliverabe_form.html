@@ -1,0 +1,32 @@
+% extends "base.html" %}
+{% block title %}Upload Deliverable | JMViews{% endblock %}
+
+{% block content %}
+  <div class="page-head">
+    <h1>Upload deliverable</h1>
+  </div>
+
+  <div class="card">
+    <form method="post" enctype="multipart/form-data" class="form" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="field">
+        <label for="{{ form.file.id_for_label }}">File</label>
+        {{ form.file }}
+        {{ form.file.errors }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.note.id_for_label }}">Note (optional)</label>
+        {{ form.note }}
+        {{ form.note.errors }}
+      </div>
+
+      <div class="actions">
+        <button class="pill glow" type="submit">Upload</button>
+        <a class="pill" href="{% url 'orders:order_list' %}">Back</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Portfolio | JMViews{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <div class="h-eyebrow">Portfolio</div>
+    <h1 class="h-title">A curated archive of visual and digital work.</h1>
+    <p class="h-sub">
+      This page will gradually fill with real projects captured while travelling — photography sets, aerial sequences,
+      web builds and motion pieces. For now, it outlines how JMViews organises work by discipline.
+    </p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <a class="btn glow" href="{% url 'core:services' %}">Explore services</a>
+      <a class="btn" href="{% url 'core:contact' %}">Start an enquiry</a>
+    </div>
+  </section>
+
+  <!-- 3 folders / collections -->
+  <section style="margin-top:16px">
+    <div class="grid two">
+      <!-- Visual Photography -->
+      <article class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">
+          Visual photography
+        </div>
+        <h2 style="margin:10px 0 0 0">Still images with intention</h2>
+        <p class="muted" style="margin:10px 0 0 0">
+          High-resolution photography focused on light, composition and story: urban moments, travel journals,
+          portraits and documentary-style sets — grouped into visual-photography collections.
+        </p>
+
+        <ul class="muted" style="margin:12px 0 0 18px;display:grid;gap:6px">
+          <li>Urban stories</li>
+          <li>Travel & landscape</li>
+          <li>Portrait series</li>
+        </ul>
+
+        <div style="margin-top:14px">
+          <a class="btn glow" href="{% url 'core:portfolio_visual' %}">View collection →</a>
+        </div>
+      </article>
+
+      <!-- Aerial Cinematography -->
+      <article class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">
+          Aerial cinematography
+        </div>
+        <h2 style="margin:10px 0 0 0">Perspective from above</h2>
+        <p class="muted" style="margin:10px 0 0 0">
+          Drone photography and motion sequences showing cities, coastlines and landscapes from above.
+          Built for hero visuals, intros and campaigns that need a cinematic vantage point.
+        </p>
+
+        <ul class="muted" style="margin:12px 0 0 18px;display:grid;gap:6px">
+          <li>Coastal flights</li>
+          <li>City overheads</li>
+          <li>Movement & motion</li>
+        </ul>
+
+        <div style="margin-top:14px">
+          <a class="btn glow" href="{% url 'core:portfolio_aerial' %}">View collection →</a>
+        </div>
+      </article>
+
+      <!-- Digital Projects -->
+      <article class="panel" style="background:rgba(15,23,42,.55)">
+        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">
+          Digital projects
+        </div>
+        <h2 style="margin:10px 0 0 0">Web, interfaces & 3D-enhanced work</h2>
+        <p class="muted" style="margin:10px 0 0 0">
+          Custom websites, interface layouts, identity pieces and, over time, work that blends in motion or 3D elements —
+          combining visuals and development into practical digital products.
+        </p>
+
+        <ul class="muted" style="margin:12px 0 0 18px;display:grid;gap:6px">
+          <li>Website builds</li>
+          <li>UI layouts</li>
+          <li>Brand & logo work</li>
+        </ul>
+
+        <div style="margin-top:14px">
+          <a class="btn glow" href="{% url 'core:portfolio_digital' %}">View collection →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Testimonials (only show if any exist) -->
+  {% if testimonials %}
+    <section style="margin-top:16px">
+      <div class="h-eyebrow">Client feedback</div>
+      <h2 style="margin:10px 0 0 0">Approved testimonials</h2>
+      <p class="muted" style="margin:10px 0 0 0">
+        Real feedback attached to completed orders.
+      </p>
+
+      <div class="grid" style="margin-top:12px">
+        {% for t in testimonials %}
+          <article class="panel" style="background:rgba(15,23,42,.55)">
+            <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">
+              {{ t.order.service.name }}
+            </div>
+
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:10px;flex-wrap:wrap">
+              <div>
+                <strong>{{ t.customer.username }}</strong>
+                <span class="muted">· {{ t.rating }}/5</span>
+              </div>
+              <div class="muted">{{ t.created_at|date:"d M Y" }}</div>
+            </div>
+
+            <p class="muted" style="margin:10px 0 0 0">
+              {{ t.content|linebreaksbr }}
+            </p>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+{% endblock %}
