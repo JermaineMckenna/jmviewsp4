@@ -408,3 +408,51 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
   .card-grid{ grid-template-columns:1fr; }
   .h-title{ font-size:30px; }
 }
+
+/* ==========================
+   MOBILE NAV: compact header
+   ========================== */
+@media (max-width: 640px){
+  /* reduce padding so header isn't huge */
+  .container{ padding: 16px 14px; }
+
+  .header-row{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    gap: 10px;
+  }
+
+  /* keep nav tighter */
+  .nav{ gap: 8px; }
+
+  /* 2x2 grid for Services/Portfolio/About/Contact */
+  .nav-links{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 8px;
+  }
+
+  .nav-links a{
+    padding: 7px 8px;
+    font-size: 13px;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  /* auth buttons in 2 columns + smaller */
+  .nav-auth{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .nav-auth a{
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  /* slightly smaller brand */
+  .brand{
+    font-size: 16px;
+  }
+}
