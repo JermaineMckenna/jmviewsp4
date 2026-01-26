@@ -9,6 +9,7 @@
         {{ order.service.name }} · <span class="badge">{{ order.get_status_display }}</span>
       </div>
     </div>
+
     <div class="head-actions">
       <a class="pill" href="{% url 'orders:order_update' order.pk %}">Edit</a>
       <a class="pill danger" href="{% url 'orders:order_delete' order.pk %}">Delete</a>
@@ -19,7 +20,7 @@
     <h2 style="margin:0 0 10px 0">Project brief</h2>
     <p class="muted" style="white-space:pre-wrap;margin:0">{{ order.brief }}</p>
 
-    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:14px">
+    <div class="meta-row" style="margin-top:14px">
       {% if order.size %}<div class="muted">Size: <strong class="text">{{ order.size }}</strong></div>{% endif %}
       {% if order.budget_gbp %}<div class="muted">Budget: <strong class="text">£{{ order.budget_gbp }}</strong></div>{% endif %}
       <div class="muted">Created: <strong class="text">{{ order.created_at|date:"d M Y, H:i" }}</strong></div>
@@ -27,7 +28,8 @@
     </div>
   </div>
 
-  <div class="grid two" style="margin-top:16px;align-items:start">
+  <!-- ✅ This wrapper is what guarantees side-by-side on desktop -->
+  <div class="order-columns" style="margin-top:16px">
     <!-- FILES BOX -->
     <section class="panel">
       <h2 style="margin:0 0 10px 0">Files & downloads</h2>
@@ -61,7 +63,8 @@
 
       <div class="panel" style="background:rgba(15,23,42,.55)">
         <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Deposit</div>
-        <div style="margin-top:8px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+
+        <div style="margin-top:8px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
           <div><strong class="text">£{{ order.deposit_amount_gbp }}</strong></div>
           <div class="badge {% if order.deposit_paid %}badge-ok{% else %}badge-warn{% endif %}">
             {% if order.deposit_paid %}Paid{% else %}Unpaid{% endif %}
@@ -78,7 +81,8 @@
 
       <div class="panel" style="background:rgba(15,23,42,.55);margin-top:12px">
         <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Final</div>
-        <div style="margin-top:8px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+
+        <div style="margin-top:8px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
           <div>
             <strong class="text">
               {% if order.final_amount_gbp %}£{{ order.final_amount_gbp }}{% else %}—{% endif %}
