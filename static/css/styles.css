@@ -350,12 +350,24 @@ color:var(--accent);
 box-shadow:0 0 24px rgba(52,211,153,.18);
 }
 
+/* Prevent grid children from overflowing */
+.grid.two > * { min-width: 0; }
+
+/* Safer wrapping on big headings */
+.h-title {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Make sure panels don’t visually overlap on mobile */
+.panel { overflow: hidden; }
+
 /* ✅ Responsive */
 @media (max-width: 900px){
   .card-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
 }
 
-@media (max-width: 800px){
+@media (max-width: 900px){
   .grid.two{ grid-template-columns:1fr; }
 }
 
@@ -402,8 +414,8 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
   }
 }
 
+/* If a tiny screen is too tight for 4 cols, switch to 2x2 */
 @media (max-width: 520px){
-  /* If a tiny screen is too tight for 4 cols, switch to 2x2 */
   .nav-links{ grid-template-columns:repeat(2, minmax(0,1fr)); }
   .card-grid{ grid-template-columns:1fr; }
   .h-title{ font-size:30px; }
@@ -412,7 +424,7 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
 /* ==========================
    MOBILE NAV: compact header
    ========================== */
-   
+
 @media (max-width: 640px){}
 
   /* reduce padding so header isn't huge */
