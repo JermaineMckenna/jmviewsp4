@@ -81,13 +81,19 @@ The site is designed for clients who want a clean and modern way to **submit a p
 Wireframes are stored in: `documentation/wireframes/`
 
 - Home (Desktop)  
-  ![Home Wireframe](documentation/wireframes/<wireframe-file>.jpeg)
+  ![Home Wireframe](documentation/wireframes/homepage.jpeg)
 
 - Services (Desktop)  
-  ![Services Wireframe](documentation/wireframes/<wireframe-file>.jpeg)
+  ![Services Wireframe](documentation/wireframes/servicespage.jpeg)
 
-- Orders (Desktop)  
-  ![Orders Wireframe](documentation/wireframes/<wireframe-file>.jpeg)
+- Contact (Desktop)  
+  ![Contact Wireframe](documentation/wireframes/contactpage.jpeg)
+
+- Register (Desktop)
+  ![Register Desktop](documentation/wireframes/createpage.jpeg)
+
+- Login (Desktop)
+  ![Login Wireframe](documentation/wireframes/loginpage.jpeg)
 
 ---
 
@@ -198,6 +204,8 @@ Stripe is used for secure payments:
 
 Payment status is displayed clearly inside the order detail page.
 
+![stripes](documentation/screenshots/stripes.jpeg)
+
 ---
 
 ## Testing
@@ -219,9 +227,6 @@ Manual testing evidence is in: `documentation/testing/`
 | New enquiry | Submit form | Order created | Pass |
 | Pay deposit | Click pay deposit | Stripe checkout loads | Pass |
 | Download files | Click download | File opens/downloads | Pass |
-
-![testing]()
-
 ---
 
 ### Validator Testing
@@ -229,13 +234,17 @@ Manual testing evidence is in: `documentation/testing/`
 - **CSS:** Jigsaw validator (no major errors)
 - **Python:** PEP8 / linter checks (where applicable)
 
-*(Add your final results once you run them.)*
-
 ---
 
 ### Known Bugs
 - Minor layout edge cases on very small mobile widths may require additional tuning.
 - If any features are unfinished, list them here clearly and explain the impact.
+- SEO is having issues on dev tools when checking performance on known devices 
+
+![SEO](documentation/screenshots/seo1.png)
+![SEO](documentation/screenshots/seo2.png)
+![SEO](documentation/screenshots/seo3.png)
+![SEO](documentation/screenshots/seo4.png)
 
 ---
 
@@ -264,12 +273,12 @@ Manual testing evidence is in: `documentation/testing/`
 7. Collect static (if needed):
    - `heroku run python manage.py collectstatic --noinput -a <app-name>`
 
-Live site: <YOUR HEROKU URL HERE>
+Live site: https://jmviews-p4-1b43f32fc4e1.herokuapp.com/
 
 ---
 
 ### Local Development
 
-1. Clone the repo:
+ Clone the repo:
    ```bash
    git clone https://github.com/JermaineMckenna/jmviewsp4.git
