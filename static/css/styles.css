@@ -19,7 +19,6 @@
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 
-/* stop horizontal extending */
 html, body{
 width:100%;
 max-width:100%;
@@ -34,6 +33,10 @@ font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
 line-height:1.5;
 }
 
+/* Kill ugly visited purple everywhere */
+a:visited{ color:inherit; }
+
+/* Layout */
 .container{
 max-width:1100px;
 margin:0 auto;
@@ -50,16 +53,17 @@ backdrop-filter:blur(10px);
 border-bottom:1px solid var(--border);
 }
 
-/* ✅ critical: don’t let header content overflow */
+/* Header container should be tighter than page container */
+.site-header .container{
+padding-top:10px;
+padding-bottom:10px;
+}
+
 .header-row{
 display:flex;
 align-items:center;
 justify-content:space-between;
 gap:14px;
-padding-top:12px;
-padding-bottom:12px;
-flex-wrap:wrap;
-overflow-x:hidden;
 }
 
 .brand{
@@ -70,35 +74,28 @@ color:var(--text);
 white-space:nowrap;
 }
 
-/* NAV */
+/* NAV (desktop defaults) */
 .nav{
 display:flex;
-flex-direction:column;
-gap:10px;
-align-items:stretch;
-width:100%;
-min-width:0;
+align-items:center;
+gap:14px;
 }
 
 .nav-links{
-display:grid;
-grid-template-columns:repeat(2, minmax(0,1fr));
-gap:8px 10px;
-width:100%;
-min-width:0;
+display:flex;
+gap:10px;
+align-items:center;
 }
 
 .nav-auth{
 display:flex;
 gap:10px;
-justify-content:center;
+align-items:center;
 flex-wrap:wrap;
-width:100%;
-min-width:0;
 }
 
 .nav a{
-color:var(--muted) !important;
+color:var(--muted);
 text-decoration:none;
 font-size:14px;
 padding:8px 10px;
@@ -106,16 +103,11 @@ border-radius:var(--radius-pill);
 border:1px solid transparent;
 display:inline-flex;
 justify-content:center;
-align-items:center;
-width:100%;
-min-width:0;
-white-space:normal; /* ✅ prevents “full screen” stretching */
-text-align:center;
+white-space:nowrap;
 }
 
-.nav a:visited{ color:var(--muted) !important; } /* ✅ kill purple visited */
 .nav a:hover{
-color:var(--text) !important;
+color:var(--text);
 background:rgba(148,163,184,.08);
 border-color:rgba(148,163,184,.12);
 }
@@ -164,7 +156,6 @@ text-shadow:
 
 /* Grid */
 .grid{ display:grid; gap:16px; }
-
 .grid.two{ grid-template-columns:repeat(2, minmax(0,1fr)); align-items:start; }
 
 /* Buttons */
@@ -222,6 +213,7 @@ background:var(--panel-2);
 
 /* Messages */
 .messages{ margin:12px 0; display:grid; gap:8px; }
+
 .msg{
 padding:10px 12px;
 border-radius:12px;
@@ -232,7 +224,6 @@ font-size:14px;
 }
 
 .msg.success{ border-color:rgba(52,211,153,.35); }
-
 .msg.error{ border-color:rgba(248,113,113,.35); }
 
 /* Page head */
@@ -277,7 +268,6 @@ justify-content:space-between;
 align-items:flex-start;
 gap:10px;
 }
-
 .card h2{ margin:0; font-size:16px; line-height:1.25; }
 
 /* Forms */
@@ -301,8 +291,8 @@ background:rgba(2,6,23,.55);
 color:var(--text);
 outline:none;
 }
-.field textarea{ min-height:140px; resize:vertical; }
 
+.field textarea{ min-height:140px; resize:vertical; }
 .field input:focus,
 .field select:focus,
 .field textarea:focus{
@@ -334,7 +324,7 @@ padding-bottom:12px;
 flex-wrap:wrap;
 }
 
-/* Social initials icons */
+/* Social initials */
 .icon-row{
 display:flex;
 flex-wrap:wrap;
@@ -342,7 +332,6 @@ gap:10px;
 justify-content:center;
 align-items:center;
 }
-
 .icon-btn{
 width:36px;
 height:36px;
@@ -374,71 +363,52 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
   .grid.two{ grid-template-columns:1fr; }
 }
 
-/* ✅ Desktop nav layout */
-@media (min-width: 768px){
-  .nav{
-	width:auto;
-	flex-direction:row;
-	align-items:center;
-	justify-content:flex-end;
-	gap:14px;
-  }
-
-  .nav-links{
-  display:flex;
-  gap:10px;
-  width:auto;
-  }
-}
-  
-/* =========================
-   NAV — compact + fixed mobile
-   ========================= */
-
-/* Make header padding smaller than normal container padding */
-.header-container{
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-/* Stop the header/nav ever becoming “page height” */
-.site-header,
-.site-header *{
-  max-height: none;
-}
-
-/* Mobile: Vercel-style single row nav */
+/* ✅ Mobile NAV: compact, not full screen */
 @media (max-width: 640px){
   .header-row{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+	flex-direction:column;
+	align-items:flex-start;
+	gap:10px;
   }
 
   .nav{
-    width: 100%;
-    gap: 10px;
+	width:100%;
+	flex-direction:column;
+	align-items:stretch;
+	gap:10px;
   }
 
-  /* 4 links in one row */
+  /* 4 links in one row like Vercel */
   .nav-links{
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
+	width:100%;
+	display:grid;
+	grid-template-columns:repeat(4, minmax(0,1fr));
+	gap:8px;
   }
 
   .nav a{
-    padding: 10px 8px;
-    white-space: nowrap;
+	width:100%;
+	padding:10px 8px;
+	white-space:nowrap;
+	text-align:center;
   }
 
-  /* Auth buttons below */
+  /* Auth row under it */
   .nav-auth{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+	width:100%;
+	display:grid;
+	grid-template-columns:1fr 1fr;
+	gap:10px;
   }
 
   .nav-auth a{
-    width: 100%;
+	width:100%;
   }
+}
+
+@media (max-width: 520px){
+  /* If a tiny screen is too tight for 4 cols, switch to 2x2 */
+  .nav-links{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+  .card-grid{ grid-template-columns:1fr; }
+  .h-title{ font-size:30px; }
 }
