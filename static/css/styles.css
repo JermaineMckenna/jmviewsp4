@@ -385,19 +385,60 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
   }
 
   .nav-links{
-	display:flex;
-	gap:10px;
-	width:auto;
+  display:flex;
+  gap:10px;
+  width:auto;
+  }
+}
+  
+/* =========================
+   NAV — compact + fixed mobile
+   ========================= */
+
+/* Make header padding smaller than normal container padding */
+.header-container{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Stop the header/nav ever becoming “page height” */
+.site-header,
+.site-header *{
+  max-height: none;
+}
+
+/* Mobile: Vercel-style single row nav */
+@media (max-width: 640px){
+  .header-row{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .nav{
+    width: 100%;
+    gap: 10px;
+  }
+
+  /* 4 links in one row */
+  .nav-links{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .nav a{
-	width:auto;
-	white-space:nowrap;
-	justify-content:flex-start;
+    padding: 10px 8px;
+    white-space: nowrap;
   }
 
+  /* Auth buttons below */
   .nav-auth{
-	width:auto;
-	justify-content:flex-end;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .nav-auth a{
+    width: 100%;
   }
 }
