@@ -115,32 +115,4 @@
       </div>
     </section>
   </div>
-
-  <!-- OPTIONAL: MINI SERVICES PREVIEW (from admin) -->
-  {% if services %}
-    <section class="panel" style="margin-top:16px">
-      <div class="h-eyebrow">Services</div>
-      <h2 style="margin:10px 0 0 0">Available to order</h2>
-
-      <div class="grid two" style="margin-top:12px">
-        {% for s in services %}
-          <div class="panel" style="background:rgba(15,23,42,.55)">
-            <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
-              <div style="min-width:220px">
-                <strong>{{ s.name }}</strong>
-                {% if s.description %}
-                  <div class="muted" style="margin-top:6px">{{ s.description|truncatechars:90 }}</div>
-                {% endif %}
-              </div>
-              <div class="muted" style="white-space:nowrap">From £{{ s.from_price_gbp }}</div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-
-      <div style="margin-top:14px">
-        <a class="btn glow" href="{% url 'core:services' %}">View all services →</a>
-      </div>
-    </section>
-  {% endif %}
 {% endblock %}
