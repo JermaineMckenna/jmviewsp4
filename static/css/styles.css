@@ -313,36 +313,95 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
   .grid.two{ grid-template-columns:1fr; }
 }
 
-/* ✅ Mobile nav: stop overflow + make it sit neatly */
+/* ===============================
+   NAV FIXES (desktop + mobile)
+   =============================== */
+
+/* 1) Kill the ugly purple visited-link colour everywhere (especially navbar) */
+a:visited { color: inherit; }
+.nav a:visited { color: var(--muted) !important; }
+.nav a { color: var(--muted) !important; }
+.nav a:hover { color: var(--text) !important; }
+
+/* 2) Stop any horizontal overflow caused by header/nav */
+html, body { max-width: 100%; overflow-x: hidden; }
+.site-header, .header-row, .nav { max-width: 100%; }
+.header-row { overflow-x: hidden; }
+
+/* Make sure nav can shrink instead of forcing width */
+.nav-links, .nav-auth { min-width: 0; }
+.nav a { min-width: 0; }
+
+/* 3) Mobile layout: neat + non-overflowing (2x2 links + 2 buttons) */
 @media (max-width: 640px){
   .header-row{
-    align-items:flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   .nav{
-    width:100%;
+    width: 100%;
   }
 
+  /* 2x2 grid for the 4 links */
   .nav-links{
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 10px;
+    width: 100%;
   }
 
-  .nav a{
-    width:100%;
-    padding:8px 10px;
-    font-size:13px;
-    white-space:normal;      /* ✅ allow wrap instead of forcing overflow */
-    text-align:center;
+  .nav-links a{
+    width: 100%;
+    justify-content: center;
+    white-space: normal;     /* ✅ critical: prevents “extended” header */
+    padding: 10px 10px;
+    text-align: center;
   }
 
+  /* Auth buttons become a clean 2-column grid */
   .nav-auth{
-    display:grid;
+    display: grid;
     grid-template-columns: 1fr 1fr;
-    gap:10px;
-    width:100%;
+    gap: 10px;
+    width: 100%;
+    justify-content: stretch;
   }
 
   .nav-auth a{
-    width:100%;
+    width: 100%;
+  }
+}
+
+/* 4) Desktop: normal row layout again */
+@media (min-width: 768px){
+  .header-row{
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .nav{
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+  }
+
+  .nav-links{
+    display: flex;
+    gap: 10px;
+    width: auto;
+  }
+
+  .nav-links a{
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .nav-auth{
+    display: flex;
+    width: auto;
   }
 }
