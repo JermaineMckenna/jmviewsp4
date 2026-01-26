@@ -4,7 +4,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>{% block title %}JMViews{% endblock %}</title>
+
+  {# ✅ SEO: meta description (override per-page if you want) #}
+  <meta name="description" content="{% block meta_description %}JMViews is a UK-based digital creative studio specialising in web design & development, photography, aerial cinematography, video editing, 3D and branding.{% endblock %}">
+
+  {# ✅ SEO: canonical URL (requires request in context; if not available, it safely won’t render) #}
+  {% if request %}
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+  {% endif %}
+
+  {# ✅ SEO: robots #}
+  <meta name="robots" content="index, follow">
+
+  {# ✅ Social sharing (Open Graph) #}
+  <meta property="og:site_name" content="JMViews">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{% block og_title %}JMViews — Digital Creative Studio{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Web design, photography, aerial cinematography, video editing and 3D — a modern digital studio based in the UK.{% endblock %}">
+  {% if request %}
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  {% endif %}
+  {# If you add /static/images/og.png later, this will work automatically #}
+  <meta property="og:image" content="{% static 'images/og.png' %}">
+
+  {# ✅ Twitter card #}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block twitter_title %}JMViews — Digital Creative Studio{% endblock %}">
+  <meta name="twitter:description" content="{% block twitter_description %}Web design, photography, aerial cinematography, video editing and 3D.{% endblock %}">
+  <meta name="twitter:image" content="{% static 'images/og.png' %}">
+
+  {# ✅ Favicons (add these files when you can; harmless if missing but best to include) #}
+  <link rel="icon" href="{% static 'images/icon.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'images/icon.png' %}">
+
+  {# ✅ Theme color (nice for mobile browser UI) #}
+  <meta name="theme-color" content="#020617">
+
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
@@ -58,12 +95,28 @@
         <div class="muted">© {% now "Y" %}</div>
       </div>
 
+      {# ✅ SEO/Accessibility: descriptive social links (still show initials) #}
       <div class="icon-row" style="margin-top:12px">
-        <a class="icon-btn" href="https://www.instagram.com/jaymviews/" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a>
-        <a class="icon-btn" href="https://www.tiktok.com/@jmviews94?lang=en-GB" target="_blank" rel="noreferrer" aria-label="TikTok">TT</a>
-        <a class="icon-btn" href="https://github.com/JermaineMckenna/" target="_blank" rel="noreferrer" aria-label="GitHub">GH</a>
-        <a class="icon-btn" href="https://www.behance.net/jermainemckenna1" target="_blank" rel="noreferrer" aria-label="Behance">BE</a>
-        <a class="icon-btn" href="https://uk.pinterest.com/jermainemckenna_/" target="_blank" rel="noreferrer" aria-label="Pinterest">PT</a>
+        <a class="icon-btn" href="https://www.instagram.com/jaymviews/" target="_blank" rel="noreferrer"
+           aria-label="JMViews on Instagram" title="Instagram">
+          IG<span class="sr-only">Instagram</span>
+        </a>
+        <a class="icon-btn" href="https://www.tiktok.com/@jmviews94?lang=en-GB" target="_blank" rel="noreferrer"
+           aria-label="JMViews on TikTok" title="TikTok">
+          TT<span class="sr-only">TikTok</span>
+        </a>
+        <a class="icon-btn" href="https://github.com/JermaineMckenna/" target="_blank" rel="noreferrer"
+           aria-label="JMViews on GitHub" title="GitHub">
+          GH<span class="sr-only">GitHub</span>
+        </a>
+        <a class="icon-btn" href="https://www.behance.net/jermainemckenna1" target="_blank" rel="noreferrer"
+           aria-label="JMViews on Behance" title="Behance">
+          BE<span class="sr-only">Behance</span>
+        </a>
+        <a class="icon-btn" href="https://uk.pinterest.com/jermainemckenna_/" target="_blank" rel="noreferrer"
+           aria-label="JMViews on Pinterest" title="Pinterest">
+          PT<span class="sr-only">Pinterest</span>
+        </a>
       </div>
     </div>
   </footer>
