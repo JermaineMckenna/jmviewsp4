@@ -2,46 +2,37 @@
 {% block title %}JMViews{% endblock %}
 
 {% block content %}
-  <!-- HERO -->
-  <section class="panel">
-    <div class="h-eyebrow">Digital services · Web · 3D · Photo · Video</div>
-    <h1 class="h-title">JMViews is an independent digital practice creating standout visuals, 3D, and fast, modern websites.</h1>
-    <p class="h-sub">
-      Focused on helping brands and individuals look sharp online: custom web design, cinematic photography, aerial cinematography,
-      video editing, and an evolving 3D & motion skillset.
-    </p>
 
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-      {% if user.is_authenticated %}
-        <a class="btn glow" href="{% url 'orders:order_create' %}">Start a project</a>
-      {% else %}
-        <a class="btn glow" href="{% url 'accounts:register' %}">Start a project</a>
-      {% endif %}
-      <a class="btn" href="{% url 'core:services' %}">View services</a>
-      <a class="btn" href="{% url 'core:portfolio' %}">View portfolio</a>
-    </div>
-  </section>
+  <!-- TOP ROW: TEXT (LEFT) + DISCIPLINES (RIGHT) -->
+  <div class="grid two" style="margin-top:8px;align-items:start">
 
-  <!-- QUICK HIGHLIGHTS -->
-  <div class="grid two" style="margin-top:16px">
-    <section class="panel">
-      <div class="h-eyebrow">Digital services studio</div>
-      <div class="grid" style="margin-top:12px">
-        <div class="panel" style="background:rgba(15,23,42,.55)">
-          <strong>Modern front-end & full-stack</strong>
-          <div class="muted" style="margin-top:6px">Clean UI, responsive layouts, production-ready builds.</div>
-        </div>
-        <div class="panel" style="background:rgba(15,23,42,.55)">
-          <strong>Sony A7R V photography</strong>
-          <div class="muted" style="margin-top:6px">Sharp, consistent visuals built around light and story.</div>
-        </div>
-        <div class="panel" style="background:rgba(15,23,42,.55)">
-          <strong>DJI Mavic aerials</strong>
-          <div class="muted" style="margin-top:6px">Cinematic drone shots for brands, places and campaigns.</div>
-        </div>
+    <!-- LEFT: Hero copy (no panel box) -->
+    <section>
+      <div class="h-eyebrow">Digital services · Web · 3D · Photo · Video</div>
+
+      <h1 class="h-title" style="margin-top:10px">
+        JMViews is an independent digital practice creating
+        <span class="glow-text">standout visuals, 3D,</span>
+        and fast, modern websites.
+      </h1>
+
+      <p class="h-sub">
+        Focused on helping brands and individuals look sharp online: custom web design, cinematic photography,
+        aerial cinematography, video editing, and an evolving 3D & motion skillset.
+      </p>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+        {% if user.is_authenticated %}
+          <a class="btn glow" href="{% url 'orders:order_create' %}">Start a project</a>
+        {% else %}
+          <a class="btn glow" href="{% url 'accounts:register' %}">Start a project</a>
+        {% endif %}
+        <a class="btn" href="{% url 'core:services' %}">View services</a>
+        <a class="btn" href="{% url 'core:portfolio' %}">View portfolio</a>
       </div>
     </section>
 
+    <!-- RIGHT: Studio disciplines (panel) -->
     <section class="panel">
       <div class="h-eyebrow">Studio disciplines</div>
 
@@ -57,12 +48,12 @@
         </div>
 
         <div class="panel" style="background:rgba(15,23,42,.55)">
-          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">3D animation</div>
+          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">3D & motion</div>
           <strong>Editing · Effects</strong>
         </div>
 
         <div class="panel" style="background:rgba(15,23,42,.55)">
-          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Branding & logo design</div>
+          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Branding & identity</div>
           <strong>Visual identity</strong>
         </div>
       </div>
@@ -115,4 +106,5 @@
       </div>
     </section>
   </div>
+
 {% endblock %}
