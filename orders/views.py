@@ -1,34 +1,21 @@
-from django.contrib import messages # type: ignore
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin # type: ignore
-from django.http import Http404 # type: ignore
-from django.shortcuts import get_object_or_404, redirect # type: ignore
-from django.urls import reverse_lazy # type: ignore
-from django.views.decorators.http import require_POST # type: ignore
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView # type: ignore
+from decimal import Decimal
+
+from django.conf import settings  # type: ignore
+from django.contrib import messages  # type: ignore
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin  # type: ignore
+from django.http import Http404, HttpResponse  # type: ignore
+from django.shortcuts import redirect, render  # type: ignore
+from django.urls import reverse_lazy  # type: ignore
+from django.views.decorators.csrf import csrf_exempt  # type: ignore
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView, View  # type: ignore
+
+import stripe  # type: ignore
 
 from .forms import DeliverableForm, OrderForm, TestimonialForm
 from .models import Deliverable, Order, Testimonial
 
 
-class StaffRequiredMixin(UserPassesTestMixin):
-	def test_func(self):
-		return bool(self.request.user.is_staff)
-
-
-class OrderAccessMixin:
-	"""
-	Staff can access any order.
-	Customers can access only their own orders.
-	"""
-
-	def get_order_or_404(self) -> Order:
-		order = get_object_or_404(
-			Order.objects.select_related("service", "customer"),
-			pk=self.kwargs["pk"],
-		)
-		if self.request.user.is_staff or order.customer == self.request.user:
-			return order
-		raise Http404("Not found")
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class OrderListView(LoginRequiredMixin, ListView):
@@ -37,7 +24,9 @@ class OrderListView(LoginRequiredMixin, ListView):
 
 	def get_queryset(self):
 		qs = Order.objects.select_related("service", "customer")
-		return qs if self.request.user.is_staff else qs.filter(customer=self.request.user)
+		if self.request.user.is_staff:
+			return qs
+		return qs.filter(customer=self.request.user)
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
@@ -46,9 +35,9 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 	model = Order
 
 	def get_object(self, queryset=None):
-		order = super().get_object(queryset)
-		if self.request.user.is_staff or order.customer == self.request.user:
-			return order
+		obj = super().get_object(queryset)
+		if self.request.user.is_staff or obj.customer == self.request.user:
+			return obj
 		raise Http404("Not found")
 
 
@@ -60,6 +49,8 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
 	def form_valid(self, form):
 		form.instance.customer = self.request.user
+		# snapshot deposit from service (editable later in admin if needed)
+		form.instance.deposit_amount_gbp = form.instance.service.deposit_gbp or Decimal("0.00")
 		messages.success(self.request, "Enquiry sent. You’ll see it listed in your orders.")
 		return super().form_valid(form)
 
@@ -97,23 +88,24 @@ class OrderDeleteView(LoginRequiredMixin, DeleteView):
 		return super().delete(request, *args, **kwargs)
 
 
+class StaffRequiredMixin(UserPassesTestMixin):
+	def test_func(self):
+		return bool(self.request.user.is_staff)
+
+
 class DeliverableCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
-	"""
-	Staff uploads a deliverable for an order.
-	"""
 	template_name = "orders/deliverable_form.html"
 	form_class = DeliverableForm
 	model = Deliverable
 
 	def dispatch(self, request, *args, **kwargs):
-		self.order = get_object_or_404(Order.objects.select_related("customer"), pk=kwargs["pk"])
+		self.order = Order.objects.select_related("customer").get(pk=kwargs["pk"])
 		return super().dispatch(request, *args, **kwargs)
 
 	def form_valid(self, form):
 		form.instance.order = self.order
 		form.instance.uploaded_by = self.request.user
 
-		# Auto-mark delivered when staff uploads a deliverable
 		if self.order.status in ("new", "in_progress"):
 			self.order.status = "delivered"
 			self.order.save(update_fields=["status", "updated_at"])
@@ -125,22 +117,16 @@ class DeliverableCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
 		return reverse_lazy("orders:order_detail", kwargs={"pk": self.order.pk})
 
 
-@require_POST
 def request_revision(request, pk):
 	if not request.user.is_authenticated:
 		return redirect("accounts:login")
 
-	order = get_object_or_404(Order.objects.select_related("customer"), pk=pk)
-
-	if request.user.is_staff:
-		messages.info(request, "Staff can update status in admin or via edit.")
-		return redirect("orders:order_detail", pk=pk)
-
-	if order.customer != request.user:
+	order = Order.objects.select_related("customer").get(pk=pk)
+	if not (request.user.is_staff or order.customer == request.user):
 		raise Http404("Not found")
 
-	if order.status not in ("delivered", "revision_requested"):
-		messages.error(request, "You can request a revision after delivery.")
+	if request.user.is_staff:
+		messages.info(request, "Staff can change status in admin or the edit screen.")
 		return redirect("orders:order_detail", pk=pk)
 
 	order.status = "revision_requested"
@@ -149,19 +135,17 @@ def request_revision(request, pk):
 	return redirect("orders:order_detail", pk=pk)
 
 
-@require_POST
 def mark_complete(request, pk):
 	if not request.user.is_authenticated:
 		return redirect("accounts:login")
 
-	order = get_object_or_404(Order.objects.select_related("customer"), pk=pk)
+	order = Order.objects.select_related("customer").get(pk=pk)
+	if not (request.user.is_staff or order.customer == request.user):
+		raise Http404("Not found")
 
 	if request.user.is_staff:
-		messages.info(request, "Staff can update status in admin or via edit.")
+		messages.info(request, "Staff can change status in admin or the edit screen.")
 		return redirect("orders:order_detail", pk=pk)
-
-	if order.customer != request.user:
-		raise Http404("Not found")
 
 	if order.status not in ("delivered", "revision_requested"):
 		messages.error(request, "This order can’t be completed yet.")
@@ -169,7 +153,7 @@ def mark_complete(request, pk):
 
 	order.status = "completed"
 	order.save(update_fields=["status", "updated_at"])
-	messages.success(request, "Marked as completed. You can now leave a testimonial.")
+	messages.success(request, "Marked as completed.")
 	return redirect("orders:order_detail", pk=pk)
 
 
@@ -179,23 +163,19 @@ class TestimonialCreateView(LoginRequiredMixin, CreateView):
 	model = Testimonial
 
 	def dispatch(self, request, *args, **kwargs):
-		self.order = get_object_or_404(Order.objects.select_related("customer"), pk=kwargs["pk"])
+		self.order = Order.objects.select_related("customer").get(pk=kwargs["pk"])
 
-		# Staff cannot create testimonials
+		if not (request.user.is_staff or self.order.customer == request.user):
+			raise Http404("Not found")
+
 		if request.user.is_staff:
 			messages.info(request, "Only customers can submit testimonials.")
 			return redirect("orders:order_detail", pk=self.order.pk)
 
-		# Must own the order
-		if self.order.customer != request.user:
-			raise Http404("Not found")
-
-		# Must be completed
 		if self.order.status != "completed":
 			messages.error(request, "You can leave a testimonial after marking the order as completed.")
 			return redirect("orders:order_detail", pk=self.order.pk)
 
-		# One testimonial per order
 		if hasattr(self.order, "testimonial"):
 			messages.info(request, "You’ve already left a testimonial for this order.")
 			return redirect("orders:order_detail", pk=self.order.pk)
@@ -205,8 +185,139 @@ class TestimonialCreateView(LoginRequiredMixin, CreateView):
 	def form_valid(self, form):
 		form.instance.order = self.order
 		form.instance.customer = self.request.user
-		messages.success(self.request, "Thanks! Your testimonial has been submitted for approval.")
+		messages.success(self.request, "Thanks! Your testimonial has been submitted.")
 		return super().form_valid(form)
 
 	def get_success_url(self):
 		return reverse_lazy("orders:order_detail", kwargs={"pk": self.order.pk})
+
+
+def _pence(amount: Decimal) -> int:
+	return int((amount * Decimal("100")).quantize(Decimal("1")))
+
+
+class PayDepositView(LoginRequiredMixin, View):
+	def post(self, request, pk):
+		order = Order.objects.select_related("customer", "service").get(pk=pk)
+		if not (request.user.is_staff or order.customer == request.user):
+			raise Http404("Not found")
+
+		if order.deposit_paid:
+			messages.info(request, "Deposit is already paid.")
+			return redirect("orders:order_detail", pk=order.pk)
+
+		if order.deposit_amount_gbp <= 0:
+			messages.error(request, "This service has no deposit set.")
+			return redirect("orders:order_detail", pk=order.pk)
+
+		if not settings.STRIPE_SECRET_KEY:
+			messages.error(request, "Stripe is not configured. Add STRIPE_SECRET_KEY in your environment.")
+			return redirect("orders:order_detail", pk=order.pk)
+
+		session = stripe.checkout.Session.create(
+			mode="payment",
+			payment_method_types=["card"],
+			line_items=[
+				{
+					"price_data": {
+						"currency": settings.STRIPE_CURRENCY,
+						"product_data": {"name": f"JMViews Deposit — {order.service.name} (Order #{order.pk})"},
+						"unit_amount": _pence(Decimal(order.deposit_amount_gbp)),
+					},
+					"quantity": 1,
+				}
+			],
+			metadata={"order_id": str(order.pk), "payment_type": "deposit"},
+			success_url=f"{settings.SITE_URL}{reverse_lazy('orders:payment_success')}?order={order.pk}",
+			cancel_url=f"{settings.SITE_URL}{reverse_lazy('orders:payment_cancel')}?order={order.pk}",
+		)
+
+		order.stripe_deposit_session_id = session.id
+		order.save(update_fields=["stripe_deposit_session_id", "updated_at"])
+		return redirect(session.url)
+
+
+class PayFinalView(LoginRequiredMixin, View):
+	def post(self, request, pk):
+		order = Order.objects.select_related("customer", "service").get(pk=pk)
+		if not (request.user.is_staff or order.customer == request.user):
+			raise Http404("Not found")
+
+		if order.final_paid:
+			messages.info(request, "Final balance is already paid.")
+			return redirect("orders:order_detail", pk=order.pk)
+
+		if not order.deposit_paid and order.deposit_amount_gbp > 0:
+			messages.error(request, "Please pay the deposit first.")
+			return redirect("orders:order_detail", pk=order.pk)
+
+		if not order.final_amount_gbp or order.final_amount_gbp <= 0:
+			messages.error(request, "Final amount hasn’t been set yet. Staff will set it in admin.")
+			return redirect("orders:order_detail", pk=order.pk)
+
+		if not settings.STRIPE_SECRET_KEY:
+			messages.error(request, "Stripe is not configured. Add STRIPE_SECRET_KEY in your environment.")
+			return redirect("orders:order_detail", pk=order.pk)
+
+		session = stripe.checkout.Session.create(
+			mode="payment",
+			payment_method_types=["card"],
+			line_items=[
+				{
+					"price_data": {
+						"currency": settings.STRIPE_CURRENCY,
+						"product_data": {"name": f"JMViews Final Payment — {order.service.name} (Order #{order.pk})"},
+						"unit_amount": _pence(Decimal(order.final_amount_gbp)),
+					},
+					"quantity": 1,
+				}
+			],
+			metadata={"order_id": str(order.pk), "payment_type": "final"},
+			success_url=f"{settings.SITE_URL}{reverse_lazy('orders:payment_success')}?order={order.pk}",
+			cancel_url=f"{settings.SITE_URL}{reverse_lazy('orders:payment_cancel')}?order={order.pk}",
+		)
+
+		order.stripe_final_session_id = session.id
+		order.save(update_fields=["stripe_final_session_id", "updated_at"])
+		return redirect(session.url)
+
+
+def payment_success(request):
+	return render(request, "orders/payment_success.html")
+
+
+def payment_cancel(request):
+	return render(request, "orders/payment_cancel.html")
+
+
+@csrf_exempt
+def stripe_webhook(request):
+	if not settings.STRIPE_WEBHOOK_SECRET:
+		return HttpResponse(status=400)
+
+	payload = request.body
+	sig_header = request.META.get("HTTP_STRIPE_SIGNATURE", "")
+
+	try:
+		event = stripe.Webhook.construct_event(payload, sig_header, settings.STRIPE_WEBHOOK_SECRET)
+	except Exception:
+		return HttpResponse(status=400)
+
+	if event["type"] == "checkout.session.completed":
+		session = event["data"]["object"]
+		if session.get("payment_status") == "paid":
+			order_id = session.get("metadata", {}).get("order_id")
+			payment_type = session.get("metadata", {}).get("payment_type")
+
+			if order_id and payment_type in ("deposit", "final"):
+				try:
+					order = Order.objects.get(pk=int(order_id))
+					if payment_type == "deposit":
+						order.deposit_paid = True
+					if payment_type == "final":
+						order.final_paid = True
+					order.save(update_fields=["deposit_paid", "final_paid", "updated_at"])
+				except Exception:
+					pass
+
+	return HttpResponse(status=200)

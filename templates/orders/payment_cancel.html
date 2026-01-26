@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Payment Cancelled | JMViews{% endblock %}
+{% block content %}
+  <section class="panel">
+    <div class="h-eyebrow">Payment</div>
+    <h1 class="h-title">Payment cancelled.</h1>
+    <p class="h-sub">No charge was made.</p>
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn glow" href="{% url 'orders:order_list' %}">Back to orders</a>
+      <a class="btn" href="{% url 'core:contact' %}">Contact</a>
+    </div>
+  </section>
+{% endblock %}

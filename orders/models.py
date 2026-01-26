@@ -7,12 +7,13 @@ class Service(models.Model):
 	name = models.CharField(max_length=120, unique=True)
 	description = models.TextField(blank=True)
 	from_price_gbp = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+	deposit_gbp = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 	active = models.BooleanField(default=True)
 
 	class Meta:
 		ordering = ["name"]
 
-	def __str__(self) -> str:
+	def __str__(self):
 		return self.name
 
 
@@ -26,30 +27,27 @@ class Order(models.Model):
 	]
 
 	customer = models.ForeignKey(
-		settings.AUTH_USER_MODEL,
-		on_delete=models.CASCADE,
-		related_name="orders",
+		settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="orders"
 	)
-	service = models.ForeignKey(
-		Service,
-		on_delete=models.PROTECT,
-		related_name="orders",
-	)
+	service = models.ForeignKey(Service, on_delete=models.PROTECT, related_name="orders")
 
 	title = models.CharField(max_length=120)
 	brief = models.TextField()
 	size = models.CharField(max_length=60, blank=True)
-	budget_gbp = models.DecimalField(
-		max_digits=8,
-		decimal_places=2,
-		null=True,
-		blank=True,
+	budget_gbp = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="new")
+
+	# Payments
+	deposit_amount_gbp = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+	final_amount_gbp = models.DecimalField(
+		max_digits=8, decimal_places=2, null=True, blank=True
 	)
-	status = models.CharField(
-		max_length=20,
-		choices=STATUS_CHOICES,
-		default="new",
-	)
+
+	deposit_paid = models.BooleanField(default=False)
+	final_paid = models.BooleanField(default=False)
+
+	stripe_deposit_session_id = models.CharField(max_length=255, blank=True)
+	stripe_final_session_id = models.CharField(max_length=255, blank=True)
 
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
@@ -57,20 +55,12 @@ class Order(models.Model):
 	class Meta:
 		ordering = ["-created_at"]
 
-	def __str__(self) -> str:
+	def __str__(self):
 		return f"#{self.pk} {self.title}"
 
 
 class Deliverable(models.Model):
-	"""
-	Staff uploads final work here (or work-in-progress) and it becomes available to the customer.
-	"""
-
-	order = models.ForeignKey(
-		Order,
-		on_delete=models.CASCADE,
-		related_name="deliverables",
-	)
+	order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="deliverables")
 	file = models.FileField(upload_to="deliverables/%Y/%m/")
 	note = models.CharField(max_length=200, blank=True)
 	uploaded_by = models.ForeignKey(
@@ -85,22 +75,14 @@ class Deliverable(models.Model):
 	class Meta:
 		ordering = ["-created_at"]
 
-	def __str__(self) -> str:
+	def __str__(self):
 		return f"Deliverable for Order #{self.order_id}"
 
 
 class Testimonial(models.Model):
-	"""Customer leaves feedback once the order is completed."""
-
-	order = models.OneToOneField(
-		Order,
-		on_delete=models.CASCADE,
-		related_name="testimonial",
-	)
+	order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="testimonial")
 	customer = models.ForeignKey(
-		settings.AUTH_USER_MODEL,
-		on_delete=models.CASCADE,
-		related_name="testimonials",
+		settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="testimonials"
 	)
 	rating = models.PositiveSmallIntegerField(
 		default=5,
@@ -113,5 +95,5 @@ class Testimonial(models.Model):
 	class Meta:
 		ordering = ["-created_at"]
 
-	def __str__(self) -> str:
+	def __str__(self):
 		return f"Testimonial by {self.customer} for Order #{self.order_id}"
