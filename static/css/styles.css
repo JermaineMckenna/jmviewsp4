@@ -17,7 +17,8 @@
 }
 
 *{ box-sizing:border-box; }
-html,body{ height:100%; }
+
+html,body{ height:auto; min-height: 100%; }
 
 html, body{
 width:100%;
@@ -221,6 +222,15 @@ font-size:14px;
 
 .msg.success{ border-color:rgba(52,211,153,.35); }
 .msg.error{ border-color:rgba(248,113,113,.35); }
+
+.page {
+  min-height: 100vh;     /* full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;}               /* pushes footer d
 
 /* Page head */
 .page-head{
