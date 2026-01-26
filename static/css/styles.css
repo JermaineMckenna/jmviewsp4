@@ -490,6 +490,38 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
     padding: 8px 10px;
   }
 }
+
+/* --- Orders page mobile overflow fixes --- */
+
+/* Let flex/grid children shrink properly (prevents overflow) */
+.page-head > * { min-width: 0; }
+.card-top > * { min-width: 0; }
+
+/* Wrap long titles/names instead of stretching the card */
+.card h2,
+.page-head h1 {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Make the right-side action button behave on small screens */
+.page-head .pill,
+.page-head .btn {
+  max-width: 100%;
+}
+
+/* On small screens: stack title + button nicely */
+@media (max-width: 520px){
+  .page-head{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-head a.pill,
+  .page-head a.btn{
+    width: 100%;
+  }
+}
  
 
   

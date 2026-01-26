@@ -13,8 +13,10 @@
         {% endif %}
       </p>
     </div>
+<div class="head-actions">
     <a class="pill glow" href="{% url 'orders:order_create' %}">New enquiry</a>
   </div>
+</div>
 
   {% if orders %}
     <div class="card-grid">
@@ -43,8 +45,10 @@
     <div class="panel" style="margin-top:16px">
       <p class="muted" style="margin:0">No orders yet. Create your first enquiry.</p>
       <div style="margin-top:12px">
+    <div class="head-actions">
         <a class="pill glow" href="{% url 'orders:order_create' %}">New enquiry</a>
       </div>
+     </div>
     </div>
   {% endif %}
 {% endblock %}
