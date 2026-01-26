@@ -412,47 +412,72 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
 /* ==========================
    MOBILE NAV: compact header
    ========================== */
-@media (max-width: 640px){
+   
+@media (max-width: 640px){}
+
   /* reduce padding so header isn't huge */
   .container{ padding: 16px 14px; }
 
-  .header-row{
-    padding-top: 8px;
-    padding-bottom: 8px;
-    gap: 10px;
+  /* ==========================
+   MOBILE HEADER: make it compact
+   ========================== */
+@media (max-width: 640px){
+
+  /* tighten ONLY the header container (not the whole site) */
+  .site-header .container{
+    padding: 10px 12px;
   }
 
-  /* keep nav tighter */
-  .nav{ gap: 8px; }
+  /* stop huge vertical stacking */
+  .header-row{
+    padding: 0;
+    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-  /* 2x2 grid for Services/Portfolio/About/Contact */
+  .nav{
+    width: 100%;
+    gap: 8px;
+  }
+
+  /* 4 links in one neat row */
   .nav-links{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px 8px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
   }
 
   .nav-links a{
-    padding: 7px 8px;
-    font-size: 13px;
-    line-height: 1.1;
+    padding: 8px 6px;
+    font-size: 12px;
+    line-height: 1;
     white-space: nowrap;
   }
 
-  /* auth buttons in 2 columns + smaller */
+  /* auth row compact */
   .nav-auth{
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
 
   .nav-auth a{
-    width: 100%;
     padding: 8px 10px;
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 1;
   }
 
-  /* slightly smaller brand */
-  .brand{
-    font-size: 16px;
+  /* brand slightly smaller */
+  .brand{ font-size: 16px; }
+
+  /* reduce how “tall” pills/buttons feel */
+  .pill, .btn{
+    padding: 8px 10px;
   }
 }
+ 
+
+  
