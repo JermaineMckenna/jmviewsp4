@@ -29,7 +29,7 @@ body{
 margin:0;
 background:var(--bg);
 color:var(--text);
-font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+font-family:"ui-sans-serif","system-ui","-apple-system","Segoe UI","Roboto","Arial";
 line-height:1.5;
 }
 
@@ -355,8 +355,8 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
 
 /* Safer wrapping on big headings */
 .h-title {
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 /* Make sure panels don’t visually overlap on mobile */
