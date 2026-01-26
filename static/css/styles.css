@@ -45,13 +45,9 @@ padding:24px 16px;
 
 /* Header */
 .site-header{
-position:sticky;
-top:0;
-z-index:10;
-background:rgba(2,6,23,.85);
-backdrop-filter:blur(10px);
-border-bottom:1px solid var(--border);
-}
+  background: rgba(2,6,23,.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);}
 
 /* Header container should be tighter than page container */
 .site-header .container{
