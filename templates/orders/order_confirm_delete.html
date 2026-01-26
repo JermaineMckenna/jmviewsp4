@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 {% block title %}Delete Order | JMViews{% endblock %}
+
 {% block content %}
   <div class="page-head">
-    <h1>Delete order</h1>
+    <div>
+      <h1 style="margin:0">Delete enquiry</h1>
+      <p class="muted" style="margin:8px 0 0 0">This can’t be undone.</p>
+    </div>
   </div>
 
-  <div class="card">
-    <p>Are you sure you want to delete <strong>{{ object.title }}</strong>?</p>
+  <div class="panel" style="margin-top:14px;max-width:720px">
+    <p style="margin:0 0 14px 0">
+      Are you sure you want to delete <strong>{{ object.title }}</strong>?
+    </p>
+
     <form method="post">
       {% csrf_token %}
-      <div class="actions">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
         <button class="pill danger" type="submit">Yes, delete</button>
         <a class="pill" href="{% url 'orders:order_detail' object.pk %}">Cancel</a>
       </div>

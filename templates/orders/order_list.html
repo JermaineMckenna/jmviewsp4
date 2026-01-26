@@ -3,7 +3,16 @@
 
 {% block content %}
   <div class="page-head">
-    <h1>{% if user.is_staff %}All orders{% else %}Your orders{% endif %}</h1>
+    <div>
+      <h1 style="margin:0">{% if user.is_staff %}All orders{% else %}Your orders{% endif %}</h1>
+      <p class="muted" style="margin:8px 0 0 0">
+        {% if user.is_staff %}
+          Manage enquiries, uploads, and payments.
+        {% else %}
+          Track progress, download files, and make payments securely.
+        {% endif %}
+      </p>
+    </div>
     <a class="pill glow" href="{% url 'orders:order_create' %}">New enquiry</a>
   </div>
 
@@ -15,15 +24,27 @@
             <h2>{{ order.title }}</h2>
             <span class="badge">{{ order.get_status_display }}</span>
           </div>
-          <p class="muted">{{ order.service.name }}</p>
-          <p class="small">Created: {{ order.created_at|date:"d M Y" }}</p>
+
+          <p class="muted" style="margin:10px 0 0 0">{{ order.service.name }}</p>
+
+          <p class="small">
+            Created: {{ order.created_at|date:"d M Y" }}
+            {% if order.deposit_paid %}
+              · <span class="badge badge-ok" style="margin-left:8px">Deposit paid</span>
+            {% endif %}
+            {% if order.final_paid %}
+              <span class="badge badge-ok" style="margin-left:8px">Final paid</span>
+            {% endif %}
+          </p>
         </a>
       {% endfor %}
     </div>
   {% else %}
-    <div class="card">
-      <p class="muted">No orders yet. Create your first enquiry.</p>
-      <a class="pill glow" href="{% url 'orders:order_create' %}">New enquiry</a>
+    <div class="panel" style="margin-top:16px">
+      <p class="muted" style="margin:0">No orders yet. Create your first enquiry.</p>
+      <div style="margin-top:12px">
+        <a class="pill glow" href="{% url 'orders:order_create' %}">New enquiry</a>
+      </div>
     </div>
   {% endif %}
 {% endblock %}
