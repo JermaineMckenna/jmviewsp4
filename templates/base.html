@@ -5,48 +5,48 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% block title %}JMViews{% endblock %}</title>
+  <title>{% block title %}JMViews — Digital Creative Studio{% endblock %}</title>
 
-  {# ✅ SEO: meta description (override per-page if you want) #}
-  <meta name="description" content="{% block meta_description %}JMViews is a UK-based digital creative studio specialising in web design & development, photography, aerial cinematography, video editing, 3D and branding.{% endblock %}">
+  <!-- SEO: Meta description -->
+  <meta name="description" content="{% block meta_description %}JMViews is a UK-based independent digital studio specialising in web design & development, photography, aerial cinematography, video editing, 3D and branding.{% endblock %}">
 
-  {# ✅ SEO: canonical URL (requires request in context; if not available, it safely won’t render) #}
+  <!-- Canonical -->
   {% if request %}
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
   {% endif %}
 
-  {# ✅ SEO: robots #}
   <meta name="robots" content="index, follow">
 
-  {# ✅ Social sharing (Open Graph) #}
+  <!-- Open Graph -->
   <meta property="og:site_name" content="JMViews">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{% block og_title %}JMViews — Digital Creative Studio{% endblock %}">
-  <meta property="og:description" content="{% block og_description %}Web design, photography, aerial cinematography, video editing and 3D — a modern digital studio based in the UK.{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Web design, photography, aerial cinematography, video editing and 3D — a modern UK digital studio.{% endblock %}">
   {% if request %}
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
   {% endif %}
-  {# If you add /static/images/og.png later, this will work automatically #}
   <meta property="og:image" content="{% static 'images/og.png' %}">
 
-  {# ✅ Twitter card #}
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{% block twitter_title %}JMViews — Digital Creative Studio{% endblock %}">
-  <meta name="twitter:description" content="{% block twitter_description %}Web design, photography, aerial cinematography, video editing and 3D.{% endblock %}">
+  <meta name="twitter:title" content="JMViews — Digital Creative Studio">
+  <meta name="twitter:description" content="Web design, photography, aerial cinematography, video editing and 3D.">
   <meta name="twitter:image" content="{% static 'images/og.png' %}">
 
-<link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
-<link rel="icon" href="{% static 'images/icon.png' %}">
-<link rel="apple-touch-icon" href="{% static 'images/icon.png' %}">
+  <!-- Favicon (THIS was your issue) -->
+  <link rel="icon" href="{% static 'images/favicon.ico' %}" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
 
-  {# ✅ Theme color (nice for mobile browser UI) #}
   <meta name="theme-color" content="#020617">
 
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
-    <div class="page">
+<div class="page">
+
   <header class="site-header">
     <div class="container header-row">
       <a class="brand" href="{% url 'core:home' %}">JMViews</a>
@@ -72,7 +72,7 @@
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="main-content">
     {% if messages %}
       <div class="messages" role="status" aria-live="polite">
         {% for message in messages %}
@@ -87,40 +87,24 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-row">
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-          <div class="brand" style="font-weight:800">JMViews</div>
+        <div>
+          <strong>JMViews</strong>
           <div class="muted">Web · Visuals · Motion</div>
-          <a class="btn" style="padding:8px 12px" href="mailto:jmviews@hotmail.com">jmviews@hotmail.com</a>
+          <a class="btn" href="mailto:jmviews@hotmail.com">jmviews@hotmail.com</a>
         </div>
-
         <div class="muted">© {% now "Y" %}</div>
       </div>
 
-      {# ✅ SEO/Accessibility: descriptive social links (still show initials) #}
-      <div class="icon-row" style="margin-top:12px">
-        <a class="icon-btn" href="https://www.instagram.com/jaymviews/" target="_blank" rel="noreferrer"
-           aria-label="JMViews on Instagram" title="Instagram">
-          IG<span class="sr-only">Instagram</span>
-        </a>
-        <a class="icon-btn" href="https://www.tiktok.com/@jmviews94?lang=en-GB" target="_blank" rel="noreferrer"
-           aria-label="JMViews on TikTok" title="TikTok">
-          TT<span class="sr-only">TikTok</span>
-        </a>
-        <a class="icon-btn" href="https://github.com/JermaineMckenna/" target="_blank" rel="noreferrer"
-           aria-label="JMViews on GitHub" title="GitHub">
-          GH<span class="sr-only">GitHub</span>
-        </a>
-        <a class="icon-btn" href="https://www.behance.net/jermainemckenna1" target="_blank" rel="noreferrer"
-           aria-label="JMViews on Behance" title="Behance">
-          BE<span class="sr-only">Behance</span>
-        </a>
-        <a class="icon-btn" href="https://uk.pinterest.com/jermainemckenna_/" target="_blank" rel="noreferrer"
-           aria-label="JMViews on Pinterest" title="Pinterest">
-          PT<span class="sr-only">Pinterest</span>
-        </a>
+      <div class="icon-row">
+        <a class="icon-btn" href="https://www.instagram.com/jaymviews/" aria-label="JMViews on Instagram">IG</a>
+        <a class="icon-btn" href="https://www.tiktok.com/@jmviews94" aria-label="JMViews on TikTok">TT</a>
+        <a class="icon-btn" href="https://github.com/JermaineMckenna/" aria-label="JMViews on GitHub">GH</a>
+        <a class="icon-btn" href="https://www.behance.net/jermainemckenna1" aria-label="JMViews on Behance">BE</a>
+        <a class="icon-btn" href="https://uk.pinterest.com/jermainemckenna_/" aria-label="JMViews on Pinterest">PT</a>
       </div>
     </div>
   </footer>
+
 </div>
 </body>
 </html>
