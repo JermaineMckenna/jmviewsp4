@@ -7,7 +7,17 @@ from django.http import Http404, HttpResponse  # type: ignore
 from django.shortcuts import redirect, render  # type: ignore
 from django.urls import reverse_lazy  # type: ignore
 from django.views.decorators.csrf import csrf_exempt  # type: ignore
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView, View  # type: ignore
+try:
+	from django.views.generic import ( # type: ignore
+		CreateView,
+		DeleteView,
+		DetailView,
+		ListView,
+		UpdateView,
+		View,
+	)  # type: ignore
+except ImportError:  # pragma: no cover
+	CreateView = DeleteView = DetailView = ListView = UpdateView = View = object
 
 import stripe  # type: ignore
 
@@ -15,6 +25,7 @@ from .forms import DeliverableForm, OrderForm, TestimonialForm
 from .models import Deliverable, Order, Testimonial
 
 
+# Stripe API key (env var via settings.py)
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -173,7 +184,10 @@ class TestimonialCreateView(LoginRequiredMixin, CreateView):
 			return redirect("orders:order_detail", pk=self.order.pk)
 
 		if self.order.status != "completed":
-			messages.error(request, "You can leave a testimonial after marking the order as completed.")
+			messages.error(
+				request,
+				"You can leave a testimonial after marking the order as completed.",
+			)
 			return redirect("orders:order_detail", pk=self.order.pk)
 
 		if hasattr(self.order, "testimonial"):
@@ -221,14 +235,20 @@ class PayDepositView(LoginRequiredMixin, View):
 				{
 					"price_data": {
 						"currency": settings.STRIPE_CURRENCY,
-						"product_data": {"name": f"JMViews Deposit — {order.service.name} (Order #{order.pk})"},
+						"product_data": {
+							"name": f"JMViews Deposit — {order.service.name} (Order #{order.pk})"
+						},
 						"unit_amount": _pence(Decimal(order.deposit_amount_gbp)),
 					},
 					"quantity": 1,
 				}
 			],
 			metadata={"order_id": str(order.pk), "payment_type": "deposit"},
-			success_url=f"{settings.SITE_URL}{reverse_lazy('orders:payment_success')}?order={order.pk}",
+			# IMPORTANT: Stripe will replace {CHECKOUT_SESSION_ID}
+			success_url=(
+				f"{settings.SITE_URL}{reverse_lazy('orders:payment_success')}"
+				f"?session_id={{CHECKOUT_SESSION_ID}}"
+			),
 			cancel_url=f"{settings.SITE_URL}{reverse_lazy('orders:payment_cancel')}?order={order.pk}",
 		)
 
@@ -266,14 +286,20 @@ class PayFinalView(LoginRequiredMixin, View):
 				{
 					"price_data": {
 						"currency": settings.STRIPE_CURRENCY,
-						"product_data": {"name": f"JMViews Final Payment — {order.service.name} (Order #{order.pk})"},
+						"product_data": {
+							"name": f"JMViews Final Payment — {order.service.name} (Order #{order.pk})"
+						},
 						"unit_amount": _pence(Decimal(order.final_amount_gbp)),
 					},
 					"quantity": 1,
 				}
 			],
 			metadata={"order_id": str(order.pk), "payment_type": "final"},
-			success_url=f"{settings.SITE_URL}{reverse_lazy('orders:payment_success')}?order={order.pk}",
+			# IMPORTANT: Stripe will replace {CHECKOUT_SESSION_ID}
+			success_url=(
+				f"{settings.SITE_URL}{reverse_lazy('orders:payment_success')}"
+				f"?session_id={{CHECKOUT_SESSION_ID}}"
+			),
 			cancel_url=f"{settings.SITE_URL}{reverse_lazy('orders:payment_cancel')}?order={order.pk}",
 		)
 
@@ -283,15 +309,66 @@ class PayFinalView(LoginRequiredMixin, View):
 
 
 def payment_success(request):
-	return render(request, "orders/payment_success.html")
+	"""
+	Success redirect from Stripe Checkout.
+	We verify the checkout session and update the Order flags immediately
+	so the UI reflects the payment result even if webhooks are delayed.
+	"""
+	session_id = request.GET.get("session_id")
+	if not session_id:
+		messages.error(request, "Missing payment session. Please contact support.")
+		return redirect("orders:order_list")
+
+	try:
+		session = stripe.checkout.Session.retrieve(session_id)
+	except Exception:
+		messages.error(request, "Unable to verify payment session. Please contact support.")
+		return redirect("orders:order_list")
+
+	if session.get("payment_status") != "paid":
+		messages.error(request, "Payment not completed.")
+		return redirect("orders:order_list")
+
+	metadata = session.get("metadata", {}) or {}
+	order_id = metadata.get("order_id")
+	payment_type = metadata.get("payment_type")
+
+	if not order_id or payment_type not in ("deposit", "final"):
+		messages.error(request, "Payment verified but order details missing. Please contact support.")
+		return redirect("orders:order_list")
+
+	try:
+		order = Order.objects.get(pk=int(order_id))
+	except Order.DoesNotExist:
+		messages.error(request, "Order not found.")
+		return redirect("orders:order_list")
+
+	updated_fields = ["updated_at"]
+	if payment_type == "deposit" and not order.deposit_paid:
+		order.deposit_paid = True
+		updated_fields.append("deposit_paid")
+
+	if payment_type == "final" and not order.final_paid:
+		order.final_paid = True
+		updated_fields.append("final_paid")
+
+	order.save(update_fields=updated_fields)
+
+	messages.success(request, "Payment successful. Thank you!")
+	return render(request, "orders/payment_success.html", {"order": order})
 
 
 def payment_cancel(request):
+	messages.info(request, "Payment cancelled — no charge was made.")
 	return render(request, "orders/payment_cancel.html")
 
 
 @csrf_exempt
 def stripe_webhook(request):
+	"""
+	Optional: Stripe webhook to update payment flags server-to-server.
+	Keep this even with success-view updates as a reliable backup.
+	"""
 	if not settings.STRIPE_WEBHOOK_SECRET:
 		return HttpResponse(status=400)
 
@@ -312,11 +389,17 @@ def stripe_webhook(request):
 			if order_id and payment_type in ("deposit", "final"):
 				try:
 					order = Order.objects.get(pk=int(order_id))
-					if payment_type == "deposit":
+					updated_fields = ["updated_at"]
+
+					if payment_type == "deposit" and not order.deposit_paid:
 						order.deposit_paid = True
-					if payment_type == "final":
+						updated_fields.append("deposit_paid")
+
+					if payment_type == "final" and not order.final_paid:
 						order.final_paid = True
-					order.save(update_fields=["deposit_paid", "final_paid", "updated_at"])
+						updated_fields.append("final_paid")
+
+					order.save(update_fields=updated_fields)
 				except Exception:
 					pass
 
