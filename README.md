@@ -454,7 +454,7 @@ Manual testing evidence is in: `documentation/testing/`
 7. Collect static (if needed):
    - `heroku run python manage.py collectstatic --noinput -a <app-name>`
 
-Live site: https://jmviews-p4-1b43f32fc4e1.herokuapp.com/
+Live site: https://jmviews.co.uk/
 
 ---
 
