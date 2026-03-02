@@ -208,6 +208,182 @@ Payment status is displayed clearly inside the order detail page.
 
 ---
 
+### Database Design
+## Entity Relationship Diagram (ERD)
+
+####ERDiagram
+
+    USER ||--o{ ORDER : places
+    SERVICE ||--o{ ORDER : is_for
+    ORDER ||--o{ DELIVERABLE : has
+    USER ||--o{ DELIVERABLE : uploads
+    ORDER ||--|| TESTIMONIAL : receives
+    USER ||--o{ TESTIMONIAL : writes
+
+    USER {
+        int id PK
+        string username
+        string email
+        boolean is_staff
+    }
+
+    SERVICE {
+        int id PK
+        string name
+        string description
+        decimal from_price_gbp
+        decimal deposit_gbp
+        boolean active
+    }
+
+    ORDER {
+        int id PK
+        string title
+        string brief
+        string size
+        decimal budget_gbp
+        string status
+
+        decimal deposit_amount_gbp
+        decimal final_amount_gbp
+        boolean deposit_paid
+        boolean final_paid
+
+        string stripe_deposit_session_id
+        string stripe_final_session_id
+
+        datetime created_at
+        datetime updated_at
+
+        int customer_id FK
+        int service_id FK
+    }
+
+    DELIVERABLE {
+        int id PK
+        string file
+        string note
+        datetime created_at
+
+        int order_id FK
+        int uploaded_by_id FK
+    }
+
+    TESTIMONIAL {
+        int id PK
+        int rating
+        string content
+        boolean approved
+        datetime created_at
+
+        int order_id FK UNIQUE
+        int customer_id FK
+    }
+
+    Overview
+
+The JMViews application uses a relational database implemented through Django’s ORM. The system is designed to manage users, services, enquiries (orders), payments, deliverables, and testimonials. The database structure ensures clear relationships between entities while enforcing data integrity through foreign key constraints.
+
+⸻
+
+Service Model
+
+The Service model represents the digital services offered by JMViews (e.g., web design, photography, aerial cinematography).
+
+Key fields:
+    •    name (unique)
+    •    description
+    •    from_price_gbp
+    •    deposit_gbp
+    •    active
+
+Relationship:
+    •    One service can be linked to many orders.
+    •    Protected with on_delete=models.PROTECT to prevent deletion of services linked to existing orders.
+
+⸻
+
+Order Model
+
+The Order model is the central entity of the application and represents a customer enquiry.
+
+Key fields:
+    •    customer (ForeignKey to User)
+    •    service (ForeignKey to Service)
+    •    title
+    •    brief
+    •    size
+    •    budget_gbp
+    •    status (workflow-controlled using predefined choices)
+    •    deposit_amount_gbp
+    •    final_amount_gbp
+    •    deposit_paid
+    •    final_paid
+    •    stripe_deposit_session_id
+    •    stripe_final_session_id
+    •    created_at
+    •    updated_at
+
+Relationships:
+    •    One user can create many orders.
+    •    Each order belongs to one service.
+    •    Each order can have many deliverables.
+    •    Each order can have one testimonial (OneToOne).
+
+Payment values are snapshotted (deposit_amount_gbp) at creation time to ensure pricing consistency even if the Service deposit changes later.
+
+⸻
+
+Deliverable Model
+
+The Deliverable model stores files uploaded by staff for a specific order.
+
+Key fields:
+    •    order (ForeignKey to Order)
+    •    file
+    •    note
+    •    uploaded_by (ForeignKey to User)
+    •    created_at
+
+Relationships:
+    •    One order can have multiple deliverables.
+    •    A deliverable belongs to exactly one order.
+    •    Staff users upload deliverables.
+
+on_delete=models.CASCADE ensures that if an order is deleted, its deliverables are also removed.
+
+⸻
+
+Testimonial Model
+
+The Testimonial model stores customer feedback after order completion.
+
+Key fields:
+    •    order (OneToOneField)
+    •    customer (ForeignKey to User)
+    •    rating (1–5 validated)
+    •    content
+    •    approved
+    •    created_at
+
+Relationships:
+    •    Each order can have only one testimonial.
+    •    A user can write multiple testimonials across different orders.
+    •    Testimonials must be linked to a completed order.
+
+⸻
+
+Data Integrity & Security
+    •    Foreign key constraints enforce referential integrity.
+    •    OneToOneField ensures only one testimonial per order.
+    •    PROTECT, CASCADE, and SET_NULL are used appropriately to control
+deletion behaviour.
+    •    Access control is enforced in the view layer so that:
+    •    Users can only view/edit their own orders.
+    •    Staff can view and manage all orders.
+
+---
+
 ## Testing
 
 ### Manual Testing
@@ -227,6 +403,11 @@ Manual testing evidence is in: `documentation/testing/`
 | New enquiry | Submit form | Order created | Pass |
 | Pay deposit | Click pay deposit | Stripe checkout loads | Pass |
 | Download files | Click download | File opens/downloads | Pass |
+
+![stripe](documentation/testing/stripeshome.png)
+![stripe](documentation/testing/stripespayment.png)
+![stripe](documentation/testing/depositcomplete.png)
+
 ---
 
 ### Validator Testing
