@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% block title %}JMViews{% endblock %}
 
+{# ✅ Explicit meta description for Lighthouse #}
+{% block meta_description %}
+JMViews is a UK-based digital studio offering web design & development, photography, aerial cinematography, video editing, and 3D/motion services.
+{% endblock %}
+
+
+{% block og_title %}JMViews — Web, Photo, Video & 3D{% endblock %}
+{% block og_description %}
+Web design & development, photography, aerial cinematography, video editing and 3D/motion — a modern one-person studio based in the UK.
+{% endblock %}
+
 {% block content %}
 
   <!-- TOP ROW: TEXT (LEFT) + DISCIPLINES (RIGHT) -->
@@ -10,9 +21,12 @@
     <section>
       <div class="h-eyebrow">Digital services · Web · 3D · Photo · Video</div>
 
-    <h1 class="h-title">JMViews is an independent digital practice creating<span class="glow-text"> standout visuals, 3D</span>,and fast, modern websites.</h1>
-    
-    <p class="h-sub">
+      <h1 class="h-title">
+        JMViews is an independent digital practice creating
+        <span class="glow-text"> standout visuals, 3D</span>, and fast, modern websites.
+      </h1>
+
+      <p class="h-sub">
         Focused on helping brands and individuals look sharp online: custom web design, cinematic photography,
         aerial cinematography, video editing, and an evolving 3D & motion skillset.
       </p>
@@ -87,7 +101,7 @@
         JMViews brings together web development, photography, aerial work and video into one place — built to look good and run well.
       </p>
       <div style="margin-top:14px">
-        <a class="btn glow" href="{% url 'core:about' %}">Read more →</a>
+        <a class="btn glow" href="{% url 'core:about' %}">About JMViews →</a>
       </div>
     </section>
 

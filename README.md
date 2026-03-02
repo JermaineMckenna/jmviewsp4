@@ -122,7 +122,7 @@ Wireframes are stored in: `documentation/wireframes/`
 - Four core service cards with “from” pricing.
 - Enquiry CTA routes users into the order/enquiry flow.
 
-![Services](documentation/screenshots/<services-desktop>.jpeg)
+![Services](documentation/screenshots/services.jpeg)
 
 ---
 
