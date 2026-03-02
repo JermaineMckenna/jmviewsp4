@@ -13,23 +13,24 @@
         {% endif %}
       </p>
     </div>
-<div class="head-actions">
-    <a class="pill glow" href="{% url 'orders:order_create' %}">New enquiry</a>
+
+    <div class="head-actions">
+      <a class="pill glow" href="{% url 'orders:order_create' %}">Create enquiry</a>
+    </div>
   </div>
-</div>
 
   {% if orders %}
     <div class="card-grid">
       {% for order in orders %}
-        <a class="card" href="{% url 'orders:order_detail' order.pk %}">
+        <div class="card">
           <div class="card-top">
-            <h2>{{ order.title }}</h2>
+            <h2 style="margin:0">{{ order.title }}</h2>
             <span class="badge">{{ order.get_status_display }}</span>
           </div>
 
           <p class="muted" style="margin:10px 0 0 0">{{ order.service.name }}</p>
 
-          <p class="small">
+          <p class="small" style="margin:10px 0 0 0">
             Created: {{ order.created_at|date:"d M Y" }}
             {% if order.deposit_paid %}
               · <span class="badge badge-ok" style="margin-left:8px">Deposit paid</span>
@@ -38,17 +39,21 @@
               <span class="badge badge-ok" style="margin-left:8px">Final paid</span>
             {% endif %}
           </p>
-        </a>
+
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="pill" href="{% url 'orders:order_detail' order.pk %}">View</a>
+            <a class="pill" href="{% url 'orders:order_update' order.pk %}">Edit</a>
+            <a class="pill" href="{% url 'orders:order_delete' order.pk %}">Delete</a>
+          </div>
+        </div>
       {% endfor %}
     </div>
   {% else %}
     <div class="panel" style="margin-top:16px">
       <p class="muted" style="margin:0">No orders yet. Create your first enquiry.</p>
       <div style="margin-top:12px">
-    <div class="head-actions">
-        <a class="pill glow" href="{% url 'orders:order_create' %}">New enquiry</a>
+        <a class="pill glow" href="{% url 'orders:order_create' %}">Create enquiry</a>
       </div>
-     </div>
     </div>
   {% endif %}
 {% endblock %}
