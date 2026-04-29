@@ -22,4 +22,5 @@ staticfiles/
 
 # Secrets
 .env
-.env.*
+.env.*static/videos/*.mp4
+static/videos/*.mp4

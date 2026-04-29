@@ -230,7 +230,8 @@ font-size:14px;
 }
 
 main {
-  flex: 1;}               /* pushes footer d
+  flex: 1;
+}               /* pushes footer down */
 
 /* Page head */
 .page-head{
@@ -545,5 +546,328 @@ box-shadow:0 0 24px rgba(52,211,153,.18);
   border:0;
 }
 
+/* ==========================
 
-  
+   JMViews homepage polish
+
+   ========================== */
+
+.hero-video {
+
+position: relative;
+
+min-height: 620px;
+
+border: 1px solid var(--border);
+
+border-radius: 24px;
+
+overflow: hidden;
+
+box-shadow: var(--shadow);
+
+display: flex;
+
+align-items: center;
+
+padding: 48px;
+
+background: #020617;
+
+}
+
+.hero-video-bg {
+
+position: absolute;
+
+inset: 0;
+
+width: 100%;
+
+height: 100%;
+
+object-fit: cover;
+
+z-index: 0;
+
+}
+
+.hero-video-overlay {
+
+position: absolute;
+
+inset: 0;
+
+z-index: 1;
+
+background:
+
+    linear-gradient(90deg, rgba(2,6,23,.92), rgba(2,6,23,.62), rgba(2,6,23,.26)),
+
+    linear-gradient(0deg, rgba(2,6,23,.70), rgba(2,6,23,.14));
+
+}
+
+.hero-video-content {
+
+position: relative;
+
+z-index: 2;
+
+max-width: 760px;
+
+}
+
+portfolio-gallery-section {
+
+  margin-top: 22px;
+
+}
+
+.portfolio-gallery {
+
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+
+  margin-top: 18px;
+
+}
+
+.portfolio-shot {
+
+  position: relative;
+
+  display: block;
+
+  height: 260px;
+
+  min-height: 260px;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--border);
+
+  background: var(--panel);
+
+  box-shadow: var(--shadow);
+
+  text-decoration: none;
+
+  color: var(--text);
+
+}
+
+.portfolio-shot img {
+
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  filter: saturate(1.06) contrast(1.04);
+
+  transition: transform .45s ease;
+
+}
+
+.portfolio-shot:hover img {
+
+  transform: scale(1.04);
+
+}
+
+.portfolio-shot::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(0deg, rgba(2,6,23,.70), rgba(2,6,23,.05));
+
+}
+
+@media (max-width: 900px) {
+
+  .portfolio-gallery {
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .portfolio-gallery {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .portfolio-shot {
+
+    height: 260px;
+
+    min-height: 260px;
+
+  }
+
+}
+
+/* ==========================
+
+   Homepage featured visuals fix
+
+   ========================== */
+
+.home-showcase {
+
+  margin-top: 26px;
+
+}
+
+.showcase-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 16px;
+
+  margin-top: 18px;
+
+}
+
+.showcase-card {
+
+  position: relative;
+
+  display: block;
+
+  height: 220px;
+
+  min-height: 220px;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--border);
+
+  background: var(--panel);
+
+  box-shadow: var(--shadow);
+
+  text-decoration: none;
+
+  color: var(--text);
+
+}
+
+.showcase-card img {
+
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position: center center;
+
+  filter: saturate(1.06) contrast(1.04);
+
+  transition: transform .45s ease;
+
+}
+
+.showcase-card:hover img {
+
+  transform: scale(1.04);
+
+}
+
+.showcase-card::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(0deg, rgba(2,6,23,.68), rgba(2,6,23,.05));
+
+}
+
+/* Fine tune each homepage image crop */
+
+.showcase-card:nth-child(1) img {
+
+  object-position: center 45%;
+
+}
+
+.showcase-card:nth-child(2) img {
+
+  object-position: center 55%;
+
+}
+
+.showcase-card:nth-child(3) img {
+
+  object-position: center 50%;
+
+}
+
+.showcase-card:nth-child(4) img {
+
+  object-position: center 50%;
+
+}
+
+@media (max-width: 900px) {
+
+  .showcase-grid {
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  }
+
+  .showcase-card {
+
+    height: 230px;
+
+    min-height: 230px;
+
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .showcase-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .showcase-card {
+
+    height: 260px;
+
+    min-height: 260px;
+
+  }
+
+}

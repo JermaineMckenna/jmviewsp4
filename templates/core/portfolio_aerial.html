@@ -1,39 +1,75 @@
 {% extends "base.html" %}
+
+{% load static %}
+
 {% block title %}Aerial Cinematography | JMViews{% endblock %}
 
 {% block content %}
-  <section class="panel">
-    <div class="h-eyebrow">Portfolio</div>
-    <h1 class="h-title">Aerial cinematography</h1>
-    <p class="h-sub">
-      Perspective from above — drone visuals built for hero moments, intros and campaigns.
-    </p>
 
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-      <a class="btn" href="{% url 'core:portfolio' %}">Back to portfolio</a>
-      <a class="btn glow" href="{% url 'core:contact' %}">Enquire</a>
-    </div>
-  </section>
+<section class="panel">
 
-  <section style="margin-top:16px">
-    <div class="grid two">
-      <div class="panel" style="background:rgba(15,23,42,.55)">
-        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Collection</div>
-        <h2 style="margin:10px 0 0 0">Coastal flights</h2>
-        <p class="muted" style="margin:10px 0 0 0">Coastlines, cliffs, and shoreline movement with cinematic framing.</p>
-      </div>
+  <div class="h-eyebrow">Portfolio</div>
 
-      <div class="panel" style="background:rgba(15,23,42,.55)">
-        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Collection</div>
-        <h2 style="margin:10px 0 0 0">City overheads</h2>
-        <p class="muted" style="margin:10px 0 0 0">Urban geometry, top-down composition, and clean motion.</p>
-      </div>
+  <h1 class="h-title">Aerial cinematography</h1>
 
-      <div class="panel" style="background:rgba(15,23,42,.55)">
-        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Collection</div>
-        <h2 style="margin:10px 0 0 0">Movement & motion</h2>
-        <p class="muted" style="margin:10px 0 0 0">Smooth passes, reveals, and sequences designed for edits.</p>
-      </div>
-    </div>
-  </section>
+  <p class="h-sub">
+
+    Perspective from above — drone visuals built for hero moments, cinematic edits, travel visuals and brand campaigns.
+
+  </p>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+
+    <a class="btn" href="{% url 'core:portfolio' %}">Back to portfolio</a>
+
+    <a class="btn glow" href="{% url 'core:contact' %}">Enquire</a>
+
+  </div>
+
+</section>
+
+<section class="aerial-feature">
+
+  <div class="h-eyebrow">Drone reel</div>
+
+  <h2 style="margin:10px 0 0 0">JMViews aerial reel</h2>
+
+  <p class="muted" style="margin:10px 0 14px 0">
+
+    A cinematic homepage drone sequence used as part of the JMViews visual identity.
+
+  </p>
+
+  <div class="portfolio-video-card">
+
+    <video controls playsinline preload="metadata" poster="{% static 'images/cornwall.jpeg' %}">
+
+      <source src="{% static 'videos/dronereel2.mp4' %}" type="video/mp4">
+
+    </video>
+
+  </div>
+
+</section>
+
+<section class="portfolio-gallery-section">
+
+  <div class="h-eyebrow">Coastal stills</div>
+
+  <h2 style="margin:10px 0 0 0">Aerial and coastal visuals</h2>
+
+  <div class="portfolio-gallery">
+
+    <article class="portfolio-shot wide">
+
+      <img src="{% static 'images/cornwall.jpeg' %}" alt="Cornwall coastal cinematic still">
+
+      <div class="showcase-label">Coastal scenes</div>
+
+    </article>
+
+  </div>
+
+</section>
+
 {% endblock %}

@@ -1,39 +1,89 @@
 {% extends "base.html" %}
+
+{% load static %}
+
 {% block title %}Visual Photography | JMViews{% endblock %}
 
 {% block content %}
-  <section class="panel">
-    <div class="h-eyebrow">Portfolio</div>
-    <h1 class="h-title">Visual photography</h1>
-    <p class="h-sub">
-      Still images with intention — focused on light, composition and story.
-    </p>
 
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-      <a class="btn" href="{% url 'core:portfolio' %}">Back to portfolio</a>
-      <a class="btn glow" href="{% url 'core:contact' %}">Enquire</a>
-    </div>
-  </section>
+<section class="panel">
 
-  <section style="margin-top:16px">
-    <div class="grid two">
-      <div class="panel" style="background:rgba(15,23,42,.55)">
-        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Collection</div>
-        <h2 style="margin:10px 0 0 0">Urban stories</h2>
-        <p class="muted" style="margin:10px 0 0 0">Street moments, architecture, and mood-led city frames.</p>
-      </div>
+  <div class="h-eyebrow">Portfolio</div>
 
-      <div class="panel" style="background:rgba(15,23,42,.55)">
-        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Collection</div>
-        <h2 style="margin:10px 0 0 0">Travel & landscape</h2>
-        <p class="muted" style="margin:10px 0 0 0">Coasts, hills, and travel journals with consistent colour.</p>
-      </div>
+  <h1 class="h-title">Visual photography</h1>
 
-      <div class="panel" style="background:rgba(15,23,42,.55)">
-        <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Collection</div>
-        <h2 style="margin:10px 0 0 0">Portrait series</h2>
-        <p class="muted" style="margin:10px 0 0 0">Portraits built around light control and clean edits.</p>
-      </div>
-    </div>
-  </section>
+  <p class="h-sub">
+
+    Still images with intention — focused on light, composition, travel, lifestyle and visual storytelling.
+
+  </p>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+
+    <a class="btn" href="{% url 'core:portfolio' %}">Back to portfolio</a>
+
+    <a class="btn glow" href="{% url 'core:contact' %}">Enquire</a>
+
+  </div>
+
+</section>
+
+<section class="portfolio-gallery-section">
+
+  <div class="h-eyebrow">Still shots</div>
+
+  <h2 style="margin:10px 0 0 0">Featured image set</h2>
+
+  <p class="muted" style="margin:10px 0 0 0">
+
+    A growing selection of JMViews travel, lifestyle and cinematic stills.
+
+  </p>
+
+  <div class="portfolio-gallery">
+
+    <a class="portfolio-shot" href="{% static 'images/bali.jpeg' %}">
+
+      <img src="{% static 'images/bali.jpeg' %}" alt="Bali travel visual">
+
+      <span class="showcase-label">Travel visuals</span>
+
+    </a>
+
+    <a class="portfolio-shot" href="{% static 'images/bali2.jpeg' %}">
+
+      <img src="{% static 'images/bali2.jpeg' %}" alt="Bali lifestyle visual">
+
+      <span class="showcase-label">Lifestyle</span>
+
+    </a>
+
+    <a class="portfolio-shot" href="{% static 'images/bali3.jpeg' %}">
+
+      <img src="{% static 'images/bali3.jpeg' %}" alt="Bali creative content visual">
+
+      <span class="showcase-label">Creative content</span>
+
+    </a>
+
+    <a class="portfolio-shot" href="{% static 'images/bali4.jpeg' %}">
+
+      <img src="{% static 'images/bali4.jpeg' %}" alt="Bali cinematic visual">
+
+      <span class="showcase-label">Cinematic still</span>
+
+    </a>
+
+    <a class="portfolio-shot" href="{% static 'images/bali5.jpeg' %}">
+
+      <img src="{% static 'images/bali5.jpeg' %}" alt="Bali landscape visual">
+
+      <span class="showcase-label">Landscape</span>
+
+    </a>
+
+  </div>
+
+</section>
+
 {% endblock %}

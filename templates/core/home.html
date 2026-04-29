@@ -1,106 +1,203 @@
 {% extends "base.html" %}
+
+{% load static %}
+
 {% block title %}JMViews{% endblock %}
 
 {% block content %}
 
-  <!-- TOP ROW: TEXT (LEFT) + DISCIPLINES (RIGHT) -->
-  <div class="grid two" style="margin-top:8px;align-items:start">
+<section class="hero-video">
 
-    <!-- LEFT: Hero copy (no panel box) -->
-    <section>
-      <div class="h-eyebrow">Digital services · Web · 3D · Photo · Video</div>
+  <video class="hero-video-bg" autoplay muted loop playsinline preload="metadata">
 
-    <h1 class="h-title">JMViews is an independent digital practice creating<span class="glow-text"> standout visuals, 3D</span>,and fast, modern websites.</h1>
-    
+    <source src="{% static 'videos/dronereel2.mp4' %}" type="video/mp4">
+
+  </video>
+
+  <div class="hero-video-overlay"></div>
+
+  <div class="hero-video-content">
+
+    <div class="h-eyebrow">Digital services · Web · 3D · Photo · Video</div>
+
+    <h1 class="h-title">
+
+      JMViews is an independent digital practice creating
+
+      <span class="glow-text">standout visuals, 3D</span>, and fast, modern websites.
+
+    </h1>
+
     <p class="h-sub">
-        Focused on helping brands and individuals look sharp online: custom web design, cinematic photography,
-        aerial cinematography, video editing, and an evolving 3D & motion skillset.
-      </p>
 
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-        {% if user.is_authenticated %}
-          <a class="btn glow" href="{% url 'orders:order_create' %}">Start a project</a>
-        {% else %}
-          <a class="btn glow" href="{% url 'accounts:register' %}">Start a project</a>
-        {% endif %}
-        <a class="btn" href="{% url 'core:services' %}">View services</a>
-        <a class="btn" href="{% url 'core:portfolio' %}">View portfolio</a>
-      </div>
-    </section>
+      Helping brands and individuals look sharp online through modern web design,
 
-    <!-- RIGHT: Studio disciplines (panel) -->
-    <section class="panel">
-      <div class="h-eyebrow">Studio disciplines</div>
+      cinematic visuals, aerial cinematography, video editing, and creative digital content.
 
-      <div class="grid" style="margin-top:12px">
-        <div class="panel" style="background:rgba(15,23,42,.55)">
-          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Web design & development</div>
-          <strong>Full-Stack</strong>
-        </div>
+    </p>
 
-        <div class="panel" style="background:rgba(15,23,42,.55)">
-          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Photography & aerials</div>
-          <strong>Sony · DJI</strong>
-        </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
 
-        <div class="panel" style="background:rgba(15,23,42,.55)">
-          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">3D & motion</div>
-          <strong>Editing · Effects</strong>
-        </div>
+      {% if user.is_authenticated %}
 
-        <div class="panel" style="background:rgba(15,23,42,.55)">
-          <div class="muted" style="font-size:12px;letter-spacing:.18em;text-transform:uppercase">Branding & identity</div>
-          <strong>Visual identity</strong>
-        </div>
-      </div>
-    </section>
+        <a class="btn glow" href="{% url 'orders:order_create' %}">Start a project</a>
+
+      {% else %}
+
+        <a class="btn glow" href="{% url 'accounts:register' %}">Start a project</a>
+
+      {% endif %}
+
+      <a class="btn" href="{% url 'core:services' %}">View services</a>
+
+      <a class="btn" href="{% url 'core:portfolio' %}">View portfolio</a>
+
+    </div>
+
   </div>
 
-  <!-- FOUR “PILLAR” CARDS -->
-  <div class="grid two" style="margin-top:16px">
-    <section class="panel">
-      <div class="h-eyebrow">Services</div>
-      <h2 style="margin:10px 0 0 0">End-to-end digital services.</h2>
-      <p class="muted" style="margin:10px 0 0 0">
-        Web, visuals, motion and 3D — a small set of services designed for creators and brands who want their online presence to feel intentional, not generic.
-      </p>
-      <div style="margin-top:14px">
-        <a class="btn glow" href="{% url 'core:services' %}">View services →</a>
-      </div>
-    </section>
+</section>
 
-    <section class="panel">
-      <div class="h-eyebrow">Portfolio</div>
-      <h2 style="margin:10px 0 0 0">Visual and digital projects.</h2>
-      <p class="muted" style="margin:10px 0 0 0">
-        Organised into photography, aerial cinematography, digital projects, and later motion & 3D.
-      </p>
-      <div style="margin-top:14px">
-        <a class="btn glow" href="{% url 'core:portfolio' %}">Explore portfolio →</a>
-      </div>
-    </section>
+<section class="home-showcase">
 
-    <section class="panel">
-      <div class="h-eyebrow">About</div>
-      <h2 style="margin:10px 0 0 0">A one-person digital studio.</h2>
-      <p class="muted" style="margin:10px 0 0 0">
-        JMViews brings together web development, photography, aerial work and video into one place — built to look good and run well.
-      </p>
-      <div style="margin-top:14px">
-        <a class="btn glow" href="{% url 'core:about' %}">Read more →</a>
-      </div>
-    </section>
+  <div class="page-head">
 
-    <section class="panel">
-      <div class="h-eyebrow">Contact</div>
-      <h2 style="margin:10px 0 0 0">Ready when you are.</h2>
+    <div>
+
+      <div class="h-eyebrow">Featured visuals</div>
+
+      <h2 style="margin:10px 0 0 0">Cinematic visuals for digital brands.</h2>
+
       <p class="muted" style="margin:10px 0 0 0">
-        Outline your project idea — whether it’s a site, a set of visuals, or something that blends web and 3D.
+
+        A small preview of JMViews photography, travel, aerial and lifestyle visuals.
+
       </p>
-      <div style="margin-top:14px">
-        <a class="btn glow" href="{% url 'core:contact' %}">Go to contact →</a>
-      </div>
-    </section>
+
+    </div>
+
   </div>
+
+  <div class="showcase-grid">
+
+    <a class="showcase-card" href="{% url 'core:portfolio_visual' %}">
+
+      <img src="{% static 'images/bali.jpeg' %}" alt="Cinematic Bali landscape">
+
+      <div class="showcase-label">Travel visuals</div>
+
+    </a>
+
+    <a class="showcase-card" href="{% url 'core:portfolio_visual' %}">
+
+      <img src="{% static 'images/bali2.jpeg' %}" alt="Bali lifestyle image">
+
+      <div class="showcase-label">Lifestyle</div>
+
+    </a>
+
+    <a class="showcase-card" href="{% url 'core:portfolio_visual' %}">
+
+      <img src="{% static 'images/bali3.jpeg' %}" alt="Bali creative visual">
+
+      <div class="showcase-label">Creative content</div>
+
+    </a>
+
+    <a class="showcase-card" href="{% url 'core:portfolio_aerial' %}">
+
+      <img src="{% static 'images/cornwall.jpeg' %}" alt="Cornwall coastal scene">
+
+      <div class="showcase-label">Coastal scenes</div>
+
+    </a>
+
+  </div>
+
+</section>
+
+<div class="grid two" style="margin-top:16px">
+
+  <section class="panel">
+
+    <div class="h-eyebrow">Services</div>
+
+    <h2 style="margin:10px 0 0 0">End-to-end digital services.</h2>
+
+    <p class="muted" style="margin:10px 0 0 0">
+
+      Web, visuals, motion and 3D — services designed for creators and brands who want their online presence to feel intentional, not generic.
+
+    </p>
+
+    <div style="margin-top:14px">
+
+      <a class="btn glow" href="{% url 'core:services' %}">View services →</a>
+
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <div class="h-eyebrow">Portfolio</div>
+
+    <h2 style="margin:10px 0 0 0">Visual and digital projects.</h2>
+
+    <p class="muted" style="margin:10px 0 0 0">
+
+      Organised into photography, aerial cinematography, digital projects, and later motion & 3D.
+
+    </p>
+
+    <div style="margin-top:14px">
+
+      <a class="btn glow" href="{% url 'core:portfolio' %}">Explore portfolio →</a>
+
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <div class="h-eyebrow">About</div>
+
+    <h2 style="margin:10px 0 0 0">A one-person digital studio.</h2>
+
+    <p class="muted" style="margin:10px 0 0 0">
+
+      JMViews brings together web development, photography, aerial work and video into one place — built to look good and run well.
+
+    </p>
+
+    <div style="margin-top:14px">
+
+      <a class="btn glow" href="{% url 'core:about' %}">Read more →</a>
+
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <div class="h-eyebrow">Contact</div>
+
+    <h2 style="margin:10px 0 0 0">Ready when you are.</h2>
+
+    <p class="muted" style="margin:10px 0 0 0">
+
+      Outline your project idea — whether it’s a site, a set of visuals, or something that blends web and 3D.
+
+    </p>
+
+    <div style="margin-top:14px">
+
+      <a class="btn glow" href="{% url 'core:contact' %}">Go to contact →</a>
+
+    </div>
+
+  </section>
+
+</div>
 
 {% endblock %}
