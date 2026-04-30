@@ -1040,27 +1040,23 @@ background:#020617;
 
 }
 
-/*Mobile: compact 2-row navbar + homepage cards */
+/* Mobile: compact 2-row navbar + homepage cards */
 
 @media (max-width:640px){
 
-  main.container{
-
-    padding:8px 14px 16px !important;
-
-  }
-
   .site-header{
 
+    height:auto !important;
+
     min-height:0 !important;
+
+    padding:0 !important;
 
   }
 
   .site-header .container{
 
     padding:8px 14px !important;
-
-    min-height:0 !important;
 
   }
 
@@ -1078,11 +1074,7 @@ background:#020617;
 
     align-items:center !important;
 
-    align-content:start !important;
-
-    row-gap:8px !important;
-
-    column-gap:10px !important;
+    gap:6px !important;
 
     min-height:0 !important;
 
@@ -1095,6 +1087,8 @@ background:#020617;
     font-size:17px;
 
     line-height:1;
+
+    margin:0;
 
   }
 
@@ -1159,6 +1153,12 @@ background:#020617;
     text-align:center;
 
     white-space:nowrap;
+
+  }
+
+  main.container{
+
+    padding:8px 14px 16px !important;
 
   }
 
@@ -1228,7 +1228,29 @@ background:#020617;
 
   }
 
+  .portfolio-video-card{
+
+    max-width:100%;
+
+    border-radius:18px;
+
+  }
+
+  .portfolio-video-card video{
+
+    width:100%;
+
+    height:auto;
+
+    max-height:none;
+
+  }
+
 }
+
+/* Very small phones */
+
+@media (max-width:420px){
 
   .brand{
 
@@ -1258,3 +1280,4 @@ background:#020617;
 
   }
 
+}
