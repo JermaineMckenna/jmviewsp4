@@ -1070,22 +1070,6 @@ background:#020617;
 
     min-height:0 !important;
 
-    max-height:92px !important;
-
-    display:grid !important;
-
-    grid-template-columns:1fr auto;
-
-    grid-template-areas:
-
-      "brand auth"
-
-      "links links";
-
-    align-items:center !important;
-
-    gap:8px !important;
-
   }
 
   .brand{
