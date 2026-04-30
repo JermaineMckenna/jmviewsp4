@@ -1052,7 +1052,7 @@ background:#020617;
 
   .site-header .container{
 
-    padding:10px 14px;
+    padding:6px 14px;
 
   }
 
@@ -1072,7 +1072,7 @@ background:#020617;
 
     align-items:center;
 
-    gap:10px;
+    gap:4px;
 
   }
 
@@ -1106,7 +1106,7 @@ background:#020617;
 
     justify-content:flex-end;
 
-    gap:6px;
+    gap:4px;
 
   }
 
@@ -1116,7 +1116,7 @@ background:#020617;
 
     min-width:auto;
 
-    padding:7px 10px;
+    padding:6px 8px;
 
     font-size:11px;
 
@@ -1136,7 +1136,7 @@ background:#020617;
 
     grid-template-columns:repeat(4,minmax(0,1fr));
 
-    gap:6px;
+    gap:4px;
 
   }
 
@@ -1144,7 +1144,7 @@ background:#020617;
 
     width:100%;
 
-    padding:8px 4px;
+    padding:6px 4px;
 
     font-size:12px;
 
@@ -1208,13 +1208,13 @@ background:#020617;
 
   .hero-video{
 
-    min-height:500px;
+    min-height:480px;
 
-    padding:24px 18px;
+    padding:22px 18px;
 
     border-radius:18px;
 
-    margin-top:16px;
+    margin-top:0;
 
   }
 
@@ -1258,7 +1258,7 @@ background:#020617;
 
     font-size:10px;
 
-    padding:6px 8px;
+    padding:6px 7px;
 
   }
 
@@ -1266,7 +1266,7 @@ background:#020617;
 
     font-size:11px;
 
-    padding:7px 3px;
+    padding:6px 3px;
 
   }
 
