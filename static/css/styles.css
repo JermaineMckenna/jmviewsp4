@@ -72,57 +72,57 @@ padding:24px 16px;
 
 .site-header{
 
-background:rgba(2,6,23,.85);
+  background:rgba(2,6,23,.88);
 
-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
 
-border-bottom:1px solid var(--border);
+  border-bottom:1px solid var(--border);
 
 }
 
 .site-header .container{
 
-padding-top:10px;
-
-padding-bottom:10px;
+  padding:10px 16px;
 
 }
 
 .header-row{
 
-display:flex;
+  display:flex;
 
-align-items:center;
+  align-items:center;
 
-justify-content:space-between;
+  justify-content:space-between;
 
-gap:14px;
+  gap:18px;
 
 }
 
 .brand{
 
-font-weight:800;
+  font-weight:800;
 
-letter-spacing:-.02em;
+  letter-spacing:-.02em;
 
-text-decoration:none;
+  text-decoration:none;
 
-color:var(--text);
+  color:var(--text);
 
-white-space:nowrap;
+  white-space:nowrap;
 
 }
 
-/* Desktop nav */
-
 .nav{
 
-display:flex;
+  display:flex;
 
-align-items:center;
+  align-items:center;
 
-gap:14px;
+  justify-content:flex-end;
+
+  gap:14px;
+
+  min-width:0;
 
 }
 
@@ -130,45 +130,119 @@ gap:14px;
 
 .nav-auth{
 
-display:flex;
+  display:flex;
 
-gap:10px;
+  align-items:center;
 
-align-items:center;
-
-flex-wrap:wrap;
+  gap:10px;
 
 }
 
 .nav a{
 
-color:var(--muted);
+  color:var(--muted);
 
-text-decoration:none;
+  text-decoration:none;
 
-font-size:14px;
+  font-size:14px;
 
-padding:8px 10px;
+  padding:8px 10px;
 
-border-radius:var(--radius-pill);
+  border-radius:999px;
 
-border:1px solid transparent;
+  border:1px solid transparent;
 
-display:inline-flex;
+  display:inline-flex;
 
-justify-content:center;
+  align-items:center;
 
-white-space:nowrap;
+  justify-content:center;
+
+  white-space:nowrap;
 
 }
 
 .nav a:hover{
 
-color:var(--text);
+  color:var(--text);
 
-background:rgba(148,163,184,.08);
+  background:rgba(148,163,184,.08);
 
-border-color:rgba(148,163,184,.12);
+  border-color:rgba(148,163,184,.12);
+
+}
+
+/* Mobile / small screens: keep navbar flat and compact */
+
+@media (max-width:640px){
+
+  .site-header .container{
+
+    padding:10px 14px;
+
+  }
+
+  .header-row{
+
+    flex-direction:row;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+  }
+
+  .brand{
+
+    font-size:15px;
+
+    flex-shrink:0;
+
+  }
+
+  .nav{
+
+    flex:1;
+
+    overflow-x:auto;
+
+    justify-content:flex-start;
+
+    gap:8px;
+
+    padding-bottom:2px;
+
+    scrollbar-width:none;
+
+  }
+
+  .nav::-webkit-scrollbar{
+
+    display:none;
+
+  }
+
+  .nav-links,
+
+  .nav-auth{
+
+    display:flex;
+
+    flex-wrap:nowrap;
+
+    gap:8px;
+
+  }
+
+  .nav a{
+
+    font-size:12px;
+
+    padding:7px 9px;
+
+  }
 
 }
 
