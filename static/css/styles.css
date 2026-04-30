@@ -1044,29 +1044,17 @@ background:#020617;
 
 @media (max-width:640px){
 
-  .container{
+  main.container{
 
-    padding:16px 14px;
-
-  }
-
-  /* Mobile: navbar + homepage cards */
-
-@media (max-width:640px){
-
-  .container{
-
-    padding:16px 14px;
+    padding:8px 14px 16px;
 
   }
 
   .site-header .container{
 
-    padding:6px 14px;
+    padding:8px 14px;
 
   }
-
-  /* NAVBAR FIX */
 
   .header-row{
 
@@ -1082,7 +1070,7 @@ background:#020617;
 
     align-items:center;
 
-    gap:4px;
+    gap:6px;
 
   }
 
@@ -1095,8 +1083,6 @@ background:#020617;
     line-height:1;
 
     display:block;
-
-    flex-shrink:0;
 
   }
 
@@ -1116,7 +1102,7 @@ background:#020617;
 
     justify-content:flex-end;
 
-    gap:4px;
+    gap:5px;
 
   }
 
@@ -1128,7 +1114,7 @@ background:#020617;
 
     padding:6px 8px;
 
-    font-size:11px;
+    font-size:10.5px;
 
     line-height:1;
 
@@ -1154,9 +1140,9 @@ background:#020617;
 
     width:100%;
 
-    padding:6px 4px;
+    padding:6px 3px;
 
-    font-size:12px;
+    font-size:11.5px;
 
     line-height:1;
 
@@ -1165,8 +1151,6 @@ background:#020617;
     white-space:nowrap;
 
   }
-
-  /* EXISTING MOBILE LAYOUT */
 
   .grid.two{
 
@@ -1224,7 +1208,13 @@ background:#020617;
 
     border-radius:18px;
 
-    margin-top:0;
+    margin-top:0 !important;
+
+  }
+
+  main > *:first-child{
+
+    margin-top:0 !important;
 
   }
 
@@ -1258,260 +1248,11 @@ background:#020617;
 
 @media (max-width:420px){
 
-  .brand{
+  main.container{
 
-    font-size:15px;
-
-  }
-
-  .nav-auth a{
-
-    font-size:10px;
-
-    padding:6px 7px;
+    padding-top:6px;
 
   }
-
-  .nav-links a{
-
-    font-size:11px;
-
-    padding:6px 3px;
-
-  }
-
-  .card-grid{
-
-    grid-template-columns:1fr;
-
-  }
-
-}
-/* Remove gap between navbar and hero */
-
-main{
-
-  padding-top:0;
-
-  margin-top:0;
-
-}
-
-.hero-video{
-
-  margin-top:0 !important;
-
-}
-
-.hero-video:first-child{
-
-  margin-top:0 !important;
-
-}
-
-main > *:first-child{
-
-  margin-top:0 !important;
-
-}
-
-  .site-header .container{
-
-    padding:6px 14px;
-
-  }
-
-  /* NAVBAR FIX */
-
-  .header-row{
-
-    display:grid;
-
-    grid-template-columns:1fr auto;
-
-    grid-template-areas:
-
-      "brand auth"
-
-      "links links";
-
-    align-items:center;
-
-    gap:4px;
-
-  }
-
-  .brand{
-
-    grid-area:brand;
-
-    font-size:17px;
-
-    line-height:1;
-
-    display:block;
-
-    flex-shrink:0;
-
-  }
-
-  .nav{
-
-    display:contents;
-
-  }
-
-  .nav-auth{
-
-    grid-area:auth;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:flex-end;
-
-    gap:4px;
-
-  }
-
-  .nav-auth a{
-
-    width:auto;
-
-    min-width:auto;
-
-    padding:6px 8px;
-
-    font-size:11px;
-
-    line-height:1;
-
-    white-space:nowrap;
-
-  }
-
-  .nav-links{
-
-    grid-area:links;
-
-    width:100%;
-
-    display:grid;
-
-    grid-template-columns:repeat(4,minmax(0,1fr));
-
-    gap:4px;
-
-  }
-
-  .nav-links a{
-
-    width:100%;
-
-    padding:6px 4px;
-
-    font-size:12px;
-
-    line-height:1;
-
-    text-align:center;
-
-    white-space:nowrap;
-
-  }
-
-  /* EXISTING MOBILE LAYOUT */
-
-  .grid.two{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .showcase-grid{
-
-    grid-template-columns:repeat(2,minmax(0,1fr));
-
-    gap:14px;
-
-  }
-
-  .showcase-card{
-
-    height:220px;
-
-    min-height:220px;
-
-  }
-
-  .showcase-label{
-
-    font-size:9px;
-
-    padding:6px 8px;
-
-    left:10px;
-
-    bottom:10px;
-
-  }
-
-  .portfolio-gallery{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .portfolio-shot{
-
-    height:260px;
-
-    min-height:260px;
-
-  }
-
-  .hero-video{
-
-    min-height:480px;
-
-    padding:22px 18px;
-
-    border-radius:18px;
-
-    margin-top:0;
-
-  }
-
-  .h-title{
-
-    font-size:30px;
-
-  }
-
-  .portfolio-video-card{
-
-    max-width:100%;
-
-    border-radius:18px;
-
-  }
-
-  .portfolio-video-card video{
-
-    width:100%;
-
-    height:auto;
-
-    max-height:none;
-
-  }
-
-}
-
-/* Very small phones */
-
-@media (max-width:420px){
 
   .brand{
 
@@ -1531,7 +1272,7 @@ main > *:first-child{
 
     font-size:11px;
 
-    padding:6px 3px;
+    padding:6px 2px;
 
   }
 
