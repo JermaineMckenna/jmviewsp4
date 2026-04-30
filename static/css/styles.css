@@ -1050,8 +1050,6 @@ background:#020617;
 
     min-height:0 !important;
 
-    max-height:0 !important;
-
     padding:0 !important;
 
     margin:0 !important;
@@ -1069,6 +1067,20 @@ background:#020617;
     height:auto !important;
 
     min-height:0 !important;
+
+    display:grid !important;
+
+    grid-template-columns:1fr auto;
+
+    grid-template-areas:
+
+      "brand auth"
+
+      "links links";
+
+    align-items:center !important;
+
+    gap:8px !important;
 
   }
 
