@@ -1084,6 +1084,281 @@ background:#020617;
 
   }
 
+  /* Mobile: compact 2-row navbar + homepage cards */
+
+@media (max-width:640px){
+
+  .site-header{
+
+    height:auto !important;
+
+    min-height:0 !important;
+
+    padding:0 !important;
+
+    margin:0 !important;
+
+    overflow:visible !important;
+
+  }
+
+  .site-header .container.header-row{
+
+    padding:8px 14px !important;
+
+    margin:0 auto !important;
+
+    height:auto !important;
+
+    min-height:0 !important;
+
+    display:grid !important;
+
+    grid-template-columns:1fr auto;
+
+    grid-template-areas:
+
+      "brand auth"
+
+      "links links";
+
+    align-items:center !important;
+
+    gap:8px !important;
+
+  }
+
+  .brand{
+
+    grid-area:brand;
+
+    font-size:17px !important;
+
+    line-height:1 !important;
+
+    margin:0 !important;
+
+  }
+
+  .nav{
+
+    display:contents !important;
+
+  }
+
+  .nav-auth{
+
+    grid-area:auth;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:flex-end !important;
+
+    gap:6px !important;
+
+    margin:0 !important;
+
+  }
+
+  .nav-auth a{
+
+    width:auto !important;
+
+    padding:6px 8px !important;
+
+    font-size:10.5px !important;
+
+    line-height:1 !important;
+
+    white-space:nowrap !important;
+
+  }
+
+  .nav-links{
+
+    grid-area:links;
+
+    display:grid !important;
+
+    grid-template-columns:repeat(4,1fr) !important;
+
+    gap:6px !important;
+
+    width:100% !important;
+
+    margin:0 !important;
+
+  }
+
+  .nav-links a{
+
+    width:100% !important;
+
+    padding:6px 3px !important;
+
+    font-size:11.5px !important;
+
+    line-height:1 !important;
+
+    text-align:center !important;
+
+    white-space:nowrap !important;
+
+  }
+
+  main.container{
+
+    padding:10px 14px 16px !important;
+
+    margin-top:0 !important;
+
+  }
+
+  .hero-video{
+
+    margin-top:0 !important;
+
+    min-height:480px;
+
+    padding:22px 18px;
+
+    border-radius:18px;
+
+  }
+
+  .grid.two{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .showcase-grid{
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    gap:14px;
+
+  }
+
+  .showcase-card{
+
+    height:220px;
+
+    min-height:220px;
+
+  }
+
+  .showcase-label{
+
+    font-size:9px;
+
+    padding:6px 8px;
+
+    left:10px;
+
+    bottom:10px;
+
+  }
+
+  .portfolio-gallery{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .portfolio-shot{
+
+    height:260px;
+
+    min-height:260px;
+
+  }
+
+  .h-title{
+
+    font-size:30px;
+
+  }
+
+  .portfolio-video-card{
+
+    max-width:100%;
+
+    border-radius:18px;
+
+  }
+
+  .portfolio-video-card video{
+
+    width:100%;
+
+    height:auto;
+
+    max-height:none;
+
+  }
+
+}
+
+/* Very small phones */
+
+@media (max-width:420px){
+
+  .brand{
+
+    font-size:15px !important;
+
+  }
+
+  .nav-auth a{
+
+    font-size:10px !important;
+
+    padding:6px 7px !important;
+
+  }
+
+  .nav-links a{
+
+    font-size:11px !important;
+
+    padding:6px 2px !important;
+
+  }
+
+  .card-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+/* Remove gap between navbar and first section on mobile */
+
+@media (max-width:640px){
+
+  main.container{
+
+    padding-top:0 !important;
+
+  }
+
+  main.container > *:first-child{
+
+    margin-top:0 !important;
+
+  }
+
+  .hero-video{
+
+    margin-top:0 !important;
+
+  }
+
+}
+
   .brand{
 
     grid-area:brand;
