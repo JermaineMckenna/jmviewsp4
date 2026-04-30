@@ -1040,25 +1040,33 @@ background:#020617;
 
 }
 
-/* Mobile: navbar + homepage cards */
+/*Mobile: compact 2-row navbar + homepage cards */
 
 @media (max-width:640px){
 
   main.container{
 
-    padding:8px 14px 16px;
+    padding:8px 14px 16px !important;
+
+  }
+
+  .site-header{
+
+    min-height:0 !important;
 
   }
 
   .site-header .container{
 
-    padding:8px 14px;
+    padding:8px 14px !important;
+
+    min-height:0 !important;
 
   }
 
   .header-row{
 
-    display:grid;
+    display:grid !important;
 
     grid-template-columns:1fr auto;
 
@@ -1068,9 +1076,15 @@ background:#020617;
 
       "links links";
 
-    align-items:center;
+    align-items:center !important;
 
-    gap:6px;
+    align-content:start !important;
+
+    row-gap:8px !important;
+
+    column-gap:10px !important;
+
+    min-height:0 !important;
 
   }
 
@@ -1082,13 +1096,11 @@ background:#020617;
 
     line-height:1;
 
-    display:block;
-
   }
 
   .nav{
 
-    display:contents;
+    display:contents !important;
 
   }
 
@@ -1096,21 +1108,19 @@ background:#020617;
 
     grid-area:auth;
 
-    display:flex;
-
-    align-items:center;
+    display:flex !important;
 
     justify-content:flex-end;
 
-    gap:5px;
+    align-items:center;
+
+    gap:6px;
 
   }
 
   .nav-auth a{
 
     width:auto;
-
-    min-width:auto;
 
     padding:6px 8px;
 
@@ -1126,13 +1136,13 @@ background:#020617;
 
     grid-area:links;
 
+    display:grid !important;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:6px;
+
     width:100%;
-
-    display:grid;
-
-    grid-template-columns:repeat(4,minmax(0,1fr));
-
-    gap:4px;
 
   }
 
@@ -1149,6 +1159,18 @@ background:#020617;
     text-align:center;
 
     white-space:nowrap;
+
+  }
+
+  .hero-video{
+
+    margin-top:0 !important;
+
+    min-height:480px;
+
+    padding:22px 18px;
+
+    border-radius:18px;
 
   }
 
@@ -1200,59 +1222,13 @@ background:#020617;
 
   }
 
-  .hero-video{
-
-    min-height:480px;
-
-    padding:22px 18px;
-
-    border-radius:18px;
-
-    margin-top:0 !important;
-
-  }
-
-  main > *:first-child{
-
-    margin-top:0 !important;
-
-  }
-
   .h-title{
 
     font-size:30px;
 
   }
 
-  .portfolio-video-card{
-
-    max-width:100%;
-
-    border-radius:18px;
-
-  }
-
-  .portfolio-video-card video{
-
-    width:100%;
-
-    height:auto;
-
-    max-height:none;
-
-  }
-
 }
-
-/* Very small phones */
-
-@media (max-width:420px){
-
-  main.container{
-
-    padding-top:6px;
-
-  }
 
   .brand{
 
@@ -1282,4 +1258,3 @@ background:#020617;
 
   }
 
-}
