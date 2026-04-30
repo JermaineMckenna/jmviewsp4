@@ -1036,19 +1036,13 @@ min-height:230px;
 
 }
 
-/* Mobile navbar fix */
+/* Mobile navbar fix only */
 
 @media (max-width:640px){
 
-  .container{
-
-    padding:16px 14px;
-
-  }
-
   .site-header .container{
 
-    padding:14px;
+    padding:12px 14px;
 
   }
 
@@ -1058,7 +1052,7 @@ min-height:230px;
 
     flex-direction:column;
 
-    align-items:stretch;
+    align-items:flex-start;
 
     gap:12px;
 
@@ -1067,6 +1061,8 @@ min-height:230px;
   .brand{
 
     font-size:18px;
+
+    line-height:1;
 
   }
 
@@ -1080,13 +1076,13 @@ min-height:230px;
 
   .nav-links{
 
+    width:100%;
+
     display:grid;
 
-    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-columns:repeat(4, 1fr);
 
     gap:6px;
-
-    width:100%;
 
   }
 
@@ -1100,9 +1096,9 @@ min-height:230px;
 
     width:100%;
 
-    padding:8px 4px;
+    padding:8px 2px;
 
-    font-size:12px;
+    font-size:11px;
 
     line-height:1;
 
@@ -1110,109 +1106,9 @@ min-height:230px;
 
   }
 
-  .hero-video{
-
-    min-height:520px;
-
-    padding:28px 18px;
-
-    border-radius:18px;
-
-  }
-
-  .hero-video-overlay{
-
-    background:linear-gradient(0deg,rgba(2,6,23,.92),rgba(2,6,23,.52));
-
-  }
-
-  .h-title{
-
-    font-size:32px;
-
-  }
-
-  .showcase-grid{
-
-    grid-template-columns:repeat(2,minmax(0,1fr));
-
-    gap:12px;
-
-  }
-
-  .showcase-card{
-
-    height:220px;
-
-    min-height:220px;
-
-    border-radius:18px;
-
-  }
-
-  .showcase-label{
-
-    left:10px;
-
-    bottom:10px;
-
-    max-width:calc(100% - 20px);
-
-    font-size:9px;
-
-    letter-spacing:.05em;
-
-    padding:6px 8px;
-
-    white-space:normal;
-
-    line-height:1.15;
-
-    text-align:left;
-
-  }
-
-  .portfolio-gallery{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .portfolio-shot{
-
-    height:260px;
-
-    min-height:260px;
-
-  }
-
-  .page-head{
-
-    flex-direction:column;
-
-    align-items:stretch;
-
-  }
-
-  .page-head a.pill,
-
-  .page-head a.btn{
-
-    width:100%;
-
-  }
-
 }
 
 /* Very small phones */
-
-@media (max-width:420px){
-
-  .nav-links{
-
-    grid-template-columns:repeat(2,minmax(0,1fr));
-
-  }
 
   .h-title{
 
@@ -1225,5 +1121,3 @@ min-height:230px;
     grid-template-columns:1fr;
 
   }
-
-}
