@@ -82,7 +82,7 @@ padding:24px 16px;
 
 .site-header .container{
 
-  padding:10px 16px;
+  padding:12px 16px;
 
 }
 
@@ -94,7 +94,7 @@ padding:24px 16px;
 
   justify-content:space-between;
 
-  gap:18px;
+  gap:40px;
 
 }
 
@@ -110,6 +110,8 @@ padding:24px 16px;
 
   white-space:nowrap;
 
+  flex-shrink:0;
+
 }
 
 .nav{
@@ -120,9 +122,9 @@ padding:24px 16px;
 
   justify-content:flex-end;
 
-  gap:14px;
+  gap:22px;
 
-  min-width:0;
+  width:100%;
 
 }
 
@@ -134,7 +136,7 @@ padding:24px 16px;
 
   align-items:center;
 
-  gap:10px;
+  gap:18px;
 
 }
 
@@ -172,13 +174,13 @@ padding:24px 16px;
 
 }
 
-/* Mobile / small screens: keep navbar flat and compact */
+/* Mobile compact single-line nav */
 
 @media (max-width:640px){
 
   .site-header .container{
 
-    padding:10px 14px;
+    padding:10px 12px;
 
   }
 
@@ -190,37 +192,27 @@ padding:24px 16px;
 
     justify-content:space-between;
 
-    gap:12px;
+    gap:10px;
 
   }
 
   .brand{
 
-    font-size:15px;
-
-    flex-shrink:0;
+    font-size:14px;
 
   }
 
   .nav{
 
+    width:auto;
+
     flex:1;
 
-    overflow-x:auto;
+    justify-content:flex-end;
 
-    justify-content:flex-start;
+    gap:6px;
 
-    gap:8px;
-
-    padding-bottom:2px;
-
-    scrollbar-width:none;
-
-  }
-
-  .nav::-webkit-scrollbar{
-
-    display:none;
+    overflow:visible;
 
   }
 
@@ -228,19 +220,25 @@ padding:24px 16px;
 
   .nav-auth{
 
-    display:flex;
+    gap:5px;
 
     flex-wrap:nowrap;
-
-    gap:8px;
 
   }
 
   .nav a{
 
-    font-size:12px;
+    font-size:10.5px;
 
-    padding:7px 9px;
+    padding:6px 4px;
+
+  }
+
+  /* Hide login on mobile to keep navbar clean */
+
+  .nav-auth a:first-child{
+
+    display:none;
 
   }
 
