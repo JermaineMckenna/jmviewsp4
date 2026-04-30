@@ -25,4 +25,5 @@ staticfiles/
 .env.*static/videos/*.mp4
 static/videos/*.mp4
 !static/videos/
-!static/videos/herovideoreel.mp4
+!static/videos/dronereelsp.mp4
+!static/videos/newclipdronereel.mp4
