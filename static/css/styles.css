@@ -998,148 +998,209 @@ min-height:230px;
 
 }
 
-/* Clean mobile navbar */
+/* Clean mobile/tablet layout */
+
+@media (max-width:900px){
+
+  .grid.two{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .card-grid{
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+  }
+
+  .showcase-grid{
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+  }
+
+  .portfolio-gallery{
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+  }
+
+  .showcase-card{
+
+    height:230px;
+
+    min-height:230px;
+
+  }
+
+}
+
+/* Mobile navbar fix */
 
 @media (max-width:640px){
 
-  .container{
+  .container{
 
-padding:16px 14px;
+    padding:16px 14px;
 
-}
+  }
 
-  .site-header .container{
+  .site-header .container{
 
-padding:12px 14px;
+    padding:14px;
 
-}
+  }
 
-  .header-row{
+  .header-row{
 
-display:grid;
+    display:flex;
 
-grid-template-columns:1fr;
+    flex-direction:column;
 
-gap:12px;
+    align-items:stretch;
 
-align-items:start;
+    gap:12px;
 
-}
+  }
 
-  .brand{
+  .brand{
 
-font-size:18px;
+    font-size:18px;
 
-}
+  }
 
-.nav{
+  .nav{
 
-width:100%;
+    width:100%;
 
-display:grid;
+    display:block;
 
-grid-template-columns:1fr;
+  }
 
-gap:10px;
+  .nav-links{
 
-}
+    display:grid;
 
-  .nav-links{
+    grid-template-columns:repeat(4,minmax(0,1fr));
 
-width:100%;
+    gap:6px;
 
-display:grid;
+    width:100%;
 
-grid-template-columns:repeat(4,minmax(0,1fr));
+  }
 
-gap:6px;
+  .nav-auth{
 
-}
+    display:none;
 
-  .nav-auth{
+  }
 
-width:100%;
+  .nav a{
 
-display:grid;
+    width:100%;
 
-grid-template-columns:repeat(2,minmax(0,1fr));
+    padding:8px 4px;
 
-gap:8px;
+    font-size:12px;
 
-}
+    line-height:1;
 
-  .nav a{
+    text-align:center;
 
-width:100%;
+  }
 
-padding:8px 6px;
+  .hero-video{
 
-font-size:12px;
+    min-height:520px;
 
-line-height:1;
+    padding:28px 18px;
 
-text-align:center;
+    border-radius:18px;
 
-}
+  }
 
-  .nav-auth a{
+  .hero-video-overlay{
 
-padding:9px 10px;
+    background:linear-gradient(0deg,rgba(2,6,23,.92),rgba(2,6,23,.52));
 
-}
+  }
 
-  .hero-video{
+  .h-title{
 
-min-height:520px;
+    font-size:32px;
 
-padding:28px 18px;
+  }
 
-border-radius:18px;
+  .showcase-grid{
 
-}
+    grid-template-columns:repeat(2,minmax(0,1fr));
 
-  .hero-video-overlay{
+    gap:12px;
 
-background:linear-gradient(0deg,rgba(2,6,23,.92),rgba(2,6,23,.52));
+  }
 
-}
+  .showcase-card{
 
-  .h-title{
+    height:220px;
 
-font-size:32px;
+    min-height:220px;
 
-}
+    border-radius:18px;
 
-  .showcase-grid,
+  }
 
-  .portfolio-gallery{
+  .showcase-label{
 
-grid-template-columns:1fr;
+    left:10px;
 
-}
+    bottom:10px;
 
-  .showcase-card,
+    max-width:calc(100% - 20px);
 
-  .portfolio-shot{
+    font-size:9px;
 
-height:260px;
+    letter-spacing:.05em;
 
-min-height:260px;
+    padding:6px 8px;
 
-}
+    white-space:normal;
 
-  .page-head{
+    line-height:1.15;
 
-flex-direction:column;
+    text-align:left;
 
-align-items:stretch;
-}
+  }
 
-.page-head a.pill,
+  .portfolio-gallery{
 
-.page-head a.btn{
+    grid-template-columns:1fr;
 
-width:100%;
+  }
+
+  .portfolio-shot{
+
+    height:260px;
+
+    min-height:260px;
+
+  }
+
+  .page-head{
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+  }
+
+  .page-head a.pill,
+
+  .page-head a.btn{
+
+    width:100%;
+
+  }
 
 }
 
@@ -1147,92 +1208,21 @@ width:100%;
 
 @media (max-width:420px){
 
-.nav-links{
+  .nav-links{
 
-grid-template-columns:repeat(2,minmax(0,1fr));
-
-}
-
-
-  .h-title{
-
-font-size:30px;
-}
-  
-
-  .card-grid {
-grid-template-columns: 1fr;
-}
-}
-}
-
-@media (max-width: 640px) {
-
-  .site-header .container {
-
-    padding: 12px 14px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
 
   }
 
-  .header-row {
+  .h-title{
 
-    display: grid;
-
-    grid-template-columns: 1fr;
-
-    gap: 12px;
+    font-size:30px;
 
   }
 
-  .brand {
+  .card-grid{
 
-    font-size: 18px;
-
-  }
-
-  .nav {
-
-    width: 100%;
-
-    display: grid;
-
-    gap: 10px;
-
-  }
-
-  .nav-links {
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 8px;
-
-    width: 100%;
-
-  }
-
-  .nav-auth {
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 8px;
-
-    width: 100%;
-
-  }
-
-  .nav a {
-
-    width: 100%;
-
-    font-size: 12px;
-
-    padding: 8px 6px;
-
-    text-align: center;
+    grid-template-columns:1fr;
 
   }
 
