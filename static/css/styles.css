@@ -1050,13 +1050,13 @@ background:#020617;
 
     min-height:0 !important;
 
-    max-height:92px !important;
+    max-height:0 !important;
 
     padding:0 !important;
 
     margin:0 !important;
 
-    overflow:hidden !important;
+    overflow:visible !important;
 
   }
 
