@@ -1,48 +1,98 @@
-/* =========================
+/* ============================= */
 
-   HEADER / NAVBAR (DESKTOP)
+/* ROOT + BASE */
 
-========================= */
+/* ============================= */
 
-.site-header{
+:root{
 
-  background:rgba(2,6,23,.88);
+--bg:#020617;
 
-  backdrop-filter:blur(10px);
+--panel:#0f172abf;
 
-  border-bottom:1px solid var(--border);
+--panel-2:rgba(15,23,42,.55);
+
+--border:rgba(148,163,184,.18);
+
+--text:#f8fafc;
+
+--muted:#cbd5e1;
+
+--accent:#34d399;
+
+--radius:16px;
+
+--radius-pill:999px;
+
+--shadow:0 10px 30px rgba(0,0,0,.25);
 
 }
 
-.site-header .container{
+*{ box-sizing:border-box; }
 
-  padding:12px 16px;
+html,body{
+
+margin:0;
+
+width:100%;
+
+overflow-x:hidden;
+
+background:var(--bg);
+
+color:var(--text);
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+
+}
+
+/* ============================= */
+
+/* HEADER (DESKTOP CLEAN) */
+
+/* ============================= */
+
+.site-header{
+
+background:rgba(2,6,23,.75);
+
+backdrop-filter:blur(12px);
+
+border-bottom:1px solid var(--border);
+
+position:sticky;
+
+top:0;
+
+z-index:100;
 
 }
 
 .header-row{
 
-  display:flex;
+display:flex;
 
-  align-items:center;
+align-items:center;
 
-  justify-content:space-between;
+justify-content:space-between;
 
-  gap:24px;
+gap:30px;
+
+padding:14px 16px;
 
 }
 
 .brand{
 
-  font-weight:800;
+font-weight:800;
 
-  letter-spacing:-.02em;
+font-size:18px;
 
-  text-decoration:none;
+letter-spacing:-0.02em;
 
-  color:var(--text);
+text-decoration:none;
 
-  white-space:nowrap;
+color:var(--text);
 
 }
 
@@ -50,219 +100,323 @@
 
 .nav{
 
-  display:flex;
+display:flex;
 
-  align-items:center;
+align-items:center;
 
-  justify-content:flex-end;
+justify-content:space-between;
 
-  gap:20px;
+width:100%;
 
-  width:100%;
+gap:20px;
 
 }
 
-.nav-links,
+.nav-links{
+
+display:flex;
+
+gap:20px;
+
+}
 
 .nav-auth{
 
-  display:flex;
+display:flex;
 
-  align-items:center;
-
-  gap:14px;
+gap:12px;
 
 }
 
+/* NAV LINKS */
+
 .nav a{
 
-  color:var(--muted);
+color:var(--muted);
 
-  text-decoration:none;
+text-decoration:none;
 
-  font-size:14px;
+font-size:14px;
 
-  padding:8px 10px;
+padding:8px 12px;
 
-  border-radius:999px;
+border-radius:999px;
 
-  display:inline-flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  white-space:nowrap;
+transition:all .25s ease;
 
 }
 
 .nav a:hover{
 
-  color:var(--text);
+color:var(--text);
 
-  background:rgba(148,163,184,.08);
+background:rgba(255,255,255,.05);
 
 }
 
-/* =========================
+/* ============================= */
 
-   MOBILE NAVBAR (CLEAN 2 ROW)
+/* HAMBURGER BUTTON */
 
-========================= */
+/* ============================= */
+
+.nav-toggle{
+
+display:none;
+
+flex-direction:column;
+
+gap:4px;
+
+cursor:pointer;
+
+}
+
+.nav-toggle span{
+
+width:22px;
+
+height:2px;
+
+background:var(--text);
+
+display:block;
+
+}
+
+/* ============================= */
+
+/* MOBILE NAV */
+
+/* ============================= */
 
 @media (max-width:640px){
 
-  /* Remove spacing issues */
+/* HEADER GRID */
 
-  .site-header{
+.header-row{
 
-    padding:0;
+display:grid;
 
-    margin:0;
+grid-template-columns:1fr auto;
 
-  }
+grid-template-areas:
 
-  .site-header .container.header-row{
+"brand toggle"
 
-    padding:10px 14px;
+"links links";
 
-    margin:0 auto;
-
-    display:grid;
-
-    grid-template-columns:1fr auto;
-
-    grid-template-areas:
-
-      "brand auth"
-
-      "links links";
-
-    align-items:center;
-
-    row-gap:6px;
-
-  }
-
-  .brand{
-
-    grid-area:brand;
-
-    font-size:16px;
-
-    margin:0;
-
-  }
-
-  /* IMPORTANT: flatten nav */
-
-  .nav{
-
-    display:contents;
-
-  }
-
-  /* LOGIN / REGISTER */
-
-  .nav-auth{
-
-    grid-area:auth;
-
-    display:flex;
-
-    justify-content:flex-end;
-
-    gap:6px;
-
-  }
-
-  .nav-auth a{
-
-    font-size:10.5px;
-
-    padding:6px 8px;
-
-  }
-
-  /* MAIN LINKS */
-
-  .nav-links{
-
-    grid-area:links;
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:6px;
-
-    width:100%;
-
-  }
-
-  .nav-links a{
-
-    font-size:11.5px;
-
-    padding:6px 4px;
-
-    text-align:center;
-
-    width:100%;
-
-  }
-
-  /* REMOVE GAP UNDER NAVBAR */
-
-  main.container{
-
-    padding-top:6px;
-
-  }
-
-  main.container > *:first-child{
-
-    margin-top:0;
-
-  }
-
-  .hero-video{
-
-    margin-top:0;
-
-  }
+gap:10px;
 
 }
 
-/* =========================
+.brand{
 
-   VERY SMALL PHONES
-
-========================= */
-
-@media (max-width:420px){
-
-  .brand{
-
-    font-size:15px;
-
-  }
-
-  .nav-auth a{
-
-    font-size:10px;
-
-    padding:5px 6px;
-
-  }
-
-  .nav-links a{
-
-    font-size:11px;
-
-    padding:5px 2px;
-
-  }
+grid-area:brand;
 
 }
+
+.nav-toggle{
+
+grid-area:toggle;
+
+display:flex;
+
+}
+
+/* NAV STRUCTURE */
+
+.nav{
+
+grid-area:links;
+
+flex-direction:column;
+
+align-items:stretch;
+
+display:none;
+
+}
+
+/* ACTIVE STATE (you'll toggle this with JS later) */
+
+.nav.active{
+
+display:flex;
+
+}
+
+/* LINKS */
+
+.nav-links{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:8px;
+
+}
+
+.nav-links a{
+
+text-align:center;
+
+padding:10px 6px;
+
+font-size:13px;
+
+background:rgba(255,255,255,.03);
+
+}
+
+/* AUTH */
+
+.nav-auth{
+
+display:flex;
+
+justify-content:center;
+
+gap:10px;
+
+margin-top:6px;
+
+}
+
+}
+
+/* ============================= */
+
+/* OPTIONAL: 2 ROW MODE (NO HAMBURGER) */
+
+/* ============================= */
+
+/* If you DON'T want hamburger, uncomment this:
+
+@media (max-width:640px){
+
+.nav{
+
+display:grid !important;
+
+grid-template-columns:1fr auto;
+
+grid-template-areas:
+
+"links links"
+
+"auth auth";
+
+}
+
+.nav-links{
+
+grid-area:links;
+
+grid-template-columns:repeat(4,1fr);
+
+}
+
+.nav-auth{
+
+grid-area:auth;
+
+justify-content:center;
+
+}
+
+}
+
+*/
+
+/* ============================= */
+
+/* KEEP YOUR EXISTING STYLES */
+
+/* ============================= */
+
+/* HERO VIDEO (unchanged) */
+
+.hero-video{
+
+position:relative;
+
+min-height:620px;
+
+border-radius:24px;
+
+overflow:hidden;
+
+display:flex;
+
+align-items:center;
+
+padding:48px;
+
+}
+
+.hero-video video{
+
+position:absolute;
+
+inset:0;
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+/* GRID + CARDS (unchanged) */
+
+.grid{ display:grid; gap:16px; }
+
+.grid.two{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+@media (max-width:900px){
+
+.grid.two{ grid-template-columns:1fr; }
+
+}
+
+/* BUTTONS */
+
+.btn,.pill{
+
+padding:10px 14px;
+
+border-radius:999px;
+
+border:1px solid var(--border);
+
+background:var(--panel-2);
+
+color:var(--text);
+
+text-decoration:none;
+
+font-size:14px;
+
+}
+
+/* FOOTER */
+
+.site-footer{
+
+border-top:1px solid var(--border);
+
+margin-top:40px;
+
+padding:20px;
+
+}
+
+/* ============================= */
 
