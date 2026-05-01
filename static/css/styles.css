@@ -1134,6 +1134,24 @@ background:#020617;
 
   }
 
+  /* Make "Services" feel like a primary action */
+
+.nav-links a{
+
+  font-weight:500;
+
+}
+
+.nav-links a:first-child{
+
+  color:var(--text);
+
+  border:1px solid rgba(148,163,184,.18);
+
+  background:rgba(148,163,184,.06);
+
+}
+
   .nav-links::-webkit-scrollbar{
 
     display:none;
