@@ -1002,7 +1002,11 @@ background:#020617;
 
 }
 
-/* Tablet */
+/* =========================
+
+   TABLET
+
+========================= */
 
 @media (max-width:900px){
 
@@ -1040,11 +1044,15 @@ background:#020617;
 
 }
 
-/* ===== ELITE SINGLE ROW MOBILE NAV ===== */
+/* =========================
+
+   ELITE MOBILE NAV (FIXED)
+
+========================= */
 
 @media (max-width:640px){
 
-  /* Header stays natural height */
+  /* HEADER */
 
   .site-header{
 
@@ -1066,27 +1074,27 @@ background:#020617;
 
     align-items:center;
 
-    justify-content:space-between;
-
-    gap:12px;
+    gap:10px;
 
     padding:10px 14px;
 
   }
 
-  /* Brand */
+  /* BRAND */
 
   .brand{
 
-    font-size:16px;
+    font-size:15.5px;
 
     font-weight:700;
 
     letter-spacing:-0.01em;
 
+    flex-shrink:0;
+
   }
 
-  /* NAV STRUCTURE */
+  /* NAV WRAPPER */
 
   .nav{
 
@@ -1094,7 +1102,9 @@ background:#020617;
 
     align-items:center;
 
-    gap:10px;
+    flex:1;
+
+    overflow:hidden;
 
   }
 
@@ -1106,7 +1116,7 @@ background:#020617;
 
   }
 
-  /* LINKS IN ONE ROW */
+  /* SCROLLABLE LINKS */
 
   .nav-links{
 
@@ -1116,9 +1126,25 @@ background:#020617;
 
     gap:6px;
 
+    overflow-x:auto;
+
+    -webkit-overflow-scrolling:touch;
+
+    scrollbar-width:none;
+
   }
 
+  .nav-links::-webkit-scrollbar{
+
+    display:none;
+
+  }
+
+  /* LINKS */
+
   .nav-links a{
+
+    flex:0 0 auto;
 
     font-size:11.5px;
 
@@ -1138,7 +1164,7 @@ background:#020617;
 
   }
 
-  /* Premium hover / tap feel */
+  /* HOVER / TAP */
 
   .nav-links a:active,
 
@@ -1152,31 +1178,73 @@ background:#020617;
 
   }
 
+  /* PAGE SPACING */
+
+  main.container{
+
+    padding:8px 14px 16px;
+
+  }
+
+  .hero-video{
+
+    margin-top:0;
+
+    min-height:480px;
+
+    padding:22px 18px;
+
+    border-radius:18px;
+
+  }
+
+  .grid.two{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .showcase-grid{
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    gap:14px;
+
+  }
+
+  .portfolio-gallery{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .h-title{
+
+    font-size:30px;
+
+  }
+
 }
 
-/* Very small phones */
+/* =========================
+
+   VERY SMALL PHONES
+
+========================= */
 
 @media (max-width:420px){
 
   .brand{
 
-    font-size:15px !important;
-
-  }
-
-  .nav-auth a{
-
-    font-size:10px !important;
-
-    padding:6px 7px !important;
+    font-size:14.5px;
 
   }
 
   .nav-links a{
 
-    font-size:11px !important;
+    font-size:11px;
 
-    padding:6px 2px !important;
+    padding:6px 6px;
 
   }
 
@@ -1187,4 +1255,3 @@ background:#020617;
   }
 
 }
-
