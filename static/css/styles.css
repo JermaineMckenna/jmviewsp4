@@ -1040,25 +1040,31 @@ background:#020617;
 
 }
 
-/* ============================= */
-
-/* CLEAN MOBILE NAV (FINAL FIX) */
-
-/* ============================= */
+/* Mobile: compact 2-row navbar + homepage cards */
 
 @media (max-width:640px){
 
   .site-header{
 
-    padding:0;
+    padding:0 !important;
 
-    margin:0;
+    margin:0 !important;
+
+    min-height:0 !important;
+
+    height:auto !important;
+
+    overflow:visible !important;
 
   }
 
   .site-header .container.header-row{
 
-    display:grid;
+    padding:8px 14px !important;
+
+    margin:0 auto !important;
+
+    display:grid !important;
 
     grid-template-columns:1fr auto;
 
@@ -1068,11 +1074,9 @@ background:#020617;
 
       "links links";
 
-    align-items:center;
+    align-items:center !important;
 
-    gap:8px;
-
-    padding:10px 14px;
+    gap:7px !important;
 
   }
 
@@ -1080,73 +1084,83 @@ background:#020617;
 
     grid-area:brand;
 
-    font-size:17px;
+    font-size:17px !important;
 
-    margin:0;
+    line-height:1 !important;
+
+    margin:0 !important;
 
   }
-
-  /* KEEP NAV AS NORMAL CONTAINER */
 
   .nav{
 
-    display:block;
-
-    width:100%;
+    display:contents !important;
 
   }
-
-  /* OPTIONAL: HIDE AUTH (recommended for clean look) */
 
   .nav-auth{
 
     grid-area:auth;
 
-    display:none; /* 👈 cleaner mobile */
+    display:flex !important;
+
+    gap:6px !important;
+
+    align-items:center !important;
+
+    justify-content:flex-end !important;
 
   }
 
-  /* NAV LINKS ROW */
+  .nav-auth a{
+
+    padding:6px 8px !important;
+
+    font-size:10.5px !important;
+
+    line-height:1 !important;
+
+    width:auto !important;
+
+    white-space:nowrap !important;
+
+  }
 
   .nav-links{
 
     grid-area:links;
 
-    display:grid;
+    display:grid !important;
 
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(4,1fr) !important;
 
-    gap:6px;
+    gap:6px !important;
 
-    width:100%;
+    width:100% !important;
 
   }
 
   .nav-links a{
 
-    text-align:center;
+    padding:6px 3px !important;
 
-    padding:8px 4px;
+    font-size:11.5px !important;
 
-    font-size:12px;
+    line-height:1 !important;
 
-    line-height:1;
+    text-align:center !important;
 
-    border-radius:8px;
-
-    background:rgba(255,255,255,0.03);
+    width:100% !important;
 
   }
-
-  /* CONTENT SPACING FIX */
 
   main.container{
 
-    padding-top:8px;
+    padding:6px 14px 16px !important;
+
+    margin:0 auto !important;
 
   }
-
-}
 
   .hero-video{
 
@@ -1231,6 +1245,8 @@ background:#020617;
     max-height:none;
 
   }
+
+}
 
 /* Very small phones */
 
